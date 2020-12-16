@@ -24,6 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     void Start()
     {
+        currentSceneController = GameObject.FindGameObjectWithTag("sceneController").GetComponent<SceneController>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
