@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - controls
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,10 @@ TagManager:
     locked: 0
   - name: Sprite
     uniqueID: 664995791
+    locked: 0
+  - name: SettingsText
+    uniqueID: 2334922529
+    locked: 0
+  - name: ControlsText
+    uniqueID: 1744418559
     locked: 0
