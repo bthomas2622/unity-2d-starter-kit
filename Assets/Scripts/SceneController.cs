@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public interface SceneController
 {
-    void Move(InputAction.CallbackContext ctx);
-    void Select(InputAction.CallbackContext ctx);
-    void Back(InputAction.CallbackContext ctx);
-    void Click(InputAction.CallbackContext ctx);
-    void Point(InputAction.CallbackContext ctx);
+    void Move(Util.Direction direction);
+    void Select();
+    void Back();
+    void Click(Vector2 vector2);
+    void Point(Vector2 vector2);
 }
