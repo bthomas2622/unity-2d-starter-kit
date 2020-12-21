@@ -266,8 +266,30 @@
                 },
                 {
                     "name": "",
+                    "id": "6913de49-9602-4a3b-8fd3-c6b49f12cffc",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5adc3629-ce0c-4502-95c0-d377501c279c",
                     "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "747514c8-aa94-4965-8bb3-3f9a184f98e4",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -288,8 +310,30 @@
                 },
                 {
                     "name": "",
+                    "id": "e12aa318-dc1b-49ca-ac39-314f1b425921",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "85ae8bb7-4c5d-4e7d-a578-66079a6ffc46",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "522c1fdd-5fe5-4a48-9439-85e7d65a3d7f",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
