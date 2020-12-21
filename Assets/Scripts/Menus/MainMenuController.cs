@@ -29,7 +29,6 @@ public class MainMenuController : MonoBehaviour, SceneController
 
     public void Select()
     {
-        Debug.Log("select");
         if (menuLayer == 1)
         {
             if (layer1Position.x == 3 && layer1Position.y == 2)
@@ -52,7 +51,6 @@ public class MainMenuController : MonoBehaviour, SceneController
     public void Click(Vector2 clickLocation)
     {
         Vector2Int clickAnalysis = Util.ReturnPositionFromMouse(clickLocation, menuLayer, sceneClickables);
-        Debug.Log(clickAnalysis);
         if (clickLocation.x != 0)
         {
             if (menuLayer == 1)
