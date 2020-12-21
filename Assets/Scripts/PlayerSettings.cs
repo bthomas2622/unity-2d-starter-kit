@@ -7,10 +7,9 @@ public class PlayerSettings : MonoBehaviour
 {
     public static PlayerSettings Instance;
     public PlayerInput playerInput;
-    private static string kSelect1, kSelect2, kBack1, kBack2, kUp1, kUp2, kDown1, kDown2, kRight1, kRight2, kLeft1, kLeft2;
-    private static string gSelect1, gSelect2, gBacg1, gBacg2, gUp1, gUp2, gDown1, gDown2, gRight1, gRight2, gLeft1, gLeft2;
     private static string defaultBindings = "defaultBindings";
     private static string playerBindings = "playerBindings";
+    private static string colorPalette = "colorPalette";
 
     public void Awake()
     {
@@ -26,7 +25,12 @@ public class PlayerSettings : MonoBehaviour
             }
             if (!PlayerPrefs.HasKey(playerBindings))
             {
-                PlayerPrefs.SetString(playerBindings, launchBindings); ;
+                PlayerPrefs.SetString(playerBindings, launchBindings);
+                PlayerPrefs.Save();
+            }
+            if (!PlayerPrefs.HasKey(colorPalette))
+            {
+                PlayerPrefs.SetString(colorPalette, 1.ToString());
                 PlayerPrefs.Save();
             }
         }
@@ -47,5 +51,19 @@ public class PlayerSettings : MonoBehaviour
     {
         string rebinds = playerInput.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
+    }
+
+    public string GetColorPalette()
+    {
+        return PlayerPrefs.GetString(colorPalette);
+    }
+
+    public void SetColorPalette(string paletteNum)
+    {
+        if (paletteNum.Equals("1") || paletteNum.Equals("2") || paletteNum.Equals("3"))
+        {
+            PlayerPrefs.SetString(colorPalette, paletteNum);
+            PlayerPrefs.Save();
+        }
     }
 }
