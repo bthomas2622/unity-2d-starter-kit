@@ -14,6 +14,8 @@ public class MainMenuController : MonoBehaviour, SceneController
 
     private List<List<float>> sceneClickables = new List<List<float>>();
     private ControlsController controlsController;
+    private SettingsController settingsController;
+    private SpriteRenderer settingsBackdrop;
 
     void Awake()
     {
@@ -21,6 +23,9 @@ public class MainMenuController : MonoBehaviour, SceneController
         layer1Position.y = 2;
         sceneClickables.Add(settingsButton);
         controlsController = GameObject.Find("ControlsController").GetComponent<ControlsController>();
+        settingsController = GameObject.Find("SettingsController").GetComponent<SettingsController>();
+        settingsBackdrop = GameObject.Find("SettingsBackdrop").GetComponent<SpriteRenderer>();
+        settingsBackdrop.enabled = false;
     }
 
     public void Move(Util.Direction direction)
@@ -33,6 +38,7 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (layer1Position.x == 3 && layer1Position.y == 2)
             {
+                settingsBackdrop.enabled = true;
                 menuLayer += 1;
                 controlsController.ShowControls(true);
             }
@@ -43,6 +49,7 @@ public class MainMenuController : MonoBehaviour, SceneController
     {
         if (menuLayer == 2)
         {
+            settingsBackdrop.enabled = false;
             menuLayer -= 1;
             controlsController.HideControls();
         }

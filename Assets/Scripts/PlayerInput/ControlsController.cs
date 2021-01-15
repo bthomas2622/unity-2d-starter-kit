@@ -20,7 +20,6 @@ public class ControlsController : MonoBehaviour
             if (controlsObject.GetComponent<TextMeshPro>() != null)
             {
                 TextMeshPro TMPTextObject = controlsObject.GetComponent<TextMeshPro>();
-                TMPTextObject.color = Util.ToColor(Util.GetPaletteFont(PlayerSettings.Instance.GetColorPalette()));
                 textControlObjects.Add(TMPTextObject);
                 if (controlsObject.GetComponent<ControlsBindingText>() != null)
                 {

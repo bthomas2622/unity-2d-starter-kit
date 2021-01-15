@@ -6,6 +6,7 @@ TagManager:
   tags:
   - controls
   - sceneController
+  - settings
   layers:
   - Default
   - TransparentFX
@@ -46,12 +47,12 @@ TagManager:
   - name: Background
     uniqueID: 1081489287
     locked: 0
-  - name: Sprite
+  - name: MenuLayer1
+    uniqueID: 2947339643
+    locked: 0
+  - name: MenuLayer2Background
+    uniqueID: 2455475131
+    locked: 0
+  - name: MenuLayer2
     uniqueID: 664995791
-    locked: 0
-  - name: SettingsText
-    uniqueID: 2334922529
-    locked: 0
-  - name: ControlsText
-    uniqueID: 1744418559
     locked: 0

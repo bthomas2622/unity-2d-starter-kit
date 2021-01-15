@@ -52,18 +52,4 @@ public class PlayerSettings : MonoBehaviour
         string rebinds = playerInput.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
     }
-
-    public string GetColorPalette()
-    {
-        return PlayerPrefs.GetString(colorPalette);
-    }
-
-    public void SetColorPalette(string paletteNum)
-    {
-        if (paletteNum.Equals("1") || paletteNum.Equals("2") || paletteNum.Equals("3"))
-        {
-            PlayerPrefs.SetString(colorPalette, paletteNum);
-            PlayerPrefs.Save();
-        }
-    }
 }
