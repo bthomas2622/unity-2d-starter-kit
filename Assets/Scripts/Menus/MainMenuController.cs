@@ -7,41 +7,167 @@ using UnityEngine.InputSystem;
 public class MainMenuController : MonoBehaviour, SceneController
 {
     private int menuLayer = 1;
-    private Vector2Int layer1Position = new Vector2Int(1, 1);
+    private Vector2Int mainMenuPosition = new Vector2Int(1, 1);
+    private Vector2Int settingsPosition = new Vector2Int(1, 1);
+    private Vector2Int controlsPosition = new Vector2Int(1, 1);
 
-    // layer, row, col, xbounds (left to right), ybounds (bottom to top)
-    private List<float> settingsButton = new List<float>() { -1.4f, 1.4f, -9.4f, -6.6f, 1f, 3f, 2f};
+    // xbounds (left to right), ybounds (bottom to top), layer, row, col
+    private List<float> settingsButton = new List<float>() { -1.4f, 1.4f, -9.4f, -6.6f, 1f, 2f, 1f};
 
     private List<List<float>> sceneClickables = new List<List<float>>();
     private ControlsController controlsController;
     private SettingsController settingsController;
     private SpriteRenderer settingsBackdrop;
 
+    private int menuLayerMax = 2;
+    private int settingsPosXMax = 7;
+    private int controlsPosXMax = 7;
     void Awake()
     {
-        layer1Position.x = 3;
-        layer1Position.y = 2;
+        menuLayer = 1;
         sceneClickables.Add(settingsButton);
         controlsController = GameObject.Find("ControlsController").GetComponent<ControlsController>();
         settingsController = GameObject.Find("SettingsController").GetComponent<SettingsController>();
-        settingsBackdrop = GameObject.Find("SettingsBackdrop").GetComponent<SpriteRenderer>();
+        settingsBackdrop = GameObject.Find("MenuLayer2Backdrop").GetComponent<SpriteRenderer>();
         settingsBackdrop.enabled = false;
     }
 
     public void Move(Util.Direction direction)
     {
+        Debug.Log(mainMenuPosition);
+        if (direction == Util.Direction.up)
+        {
+            if (menuLayer == 1)
+            {
+                if (mainMenuPosition.x > 1)
+                {
+                    mainMenuPosition.x -= 1;
+                    UpdateSelected();
+                }
+            }
+            else if (menuLayer == 2)
+            {
+                if (settingsPosition.x > 1)
+                {
+                    settingsPosition.x -= 1;
+                    UpdateSelected();
+                }
+            }
+            else if (menuLayer == 3)
+            {
+                if (controlsPosition.x > 1)
+                {
+                    controlsPosition.x -= 1;
+                    UpdateSelected();
+                }
+            }
+        }
+        else if (direction == Util.Direction.down)
+        {
+            if (menuLayer == 1)
+            {
+                if (mainMenuPosition.x < menuLayerMax)
+                {
+                    mainMenuPosition.x += 1;
+                    UpdateSelected();
+                }
+            }
+            else if (menuLayer == 2)
+            {
+                if (settingsPosition.x < settingsPosXMax)
+                {
+                    settingsPosition.x += 1;
+                    UpdateSelected();
+                }
+            }
+            else if (menuLayer == 3)
+            {
+                if (controlsPosition.x < controlsPosXMax)
+                {
+                    controlsPosition.x += 1;
+                    UpdateSelected();
+                }
+            }
+        }
+        else if (direction == Util.Direction.left)
+        {
+            if (menuLayer == 2)
+            {
+
+            }
+        }
+        else if (direction == Util.Direction.right)
+        {
+            if (menuLayer == 2)
+            {
+
+            }
+        }
     }
 
     public void Select()
     {
         if (menuLayer == 1)
         {
-            if (layer1Position.x == 3 && layer1Position.y == 2)
+            if (mainMenuPosition.x == 2)
             {
-                settingsBackdrop.enabled = true;
                 menuLayer += 1;
+                ResetLayerDefaultPositions(true, true);
+                settingsBackdrop.enabled = true;
+                settingsController.ShowSettings();
+            }
+        }
+        else if (menuLayer == 2)
+        {
+            if (settingsPosition.x == 4)
+            {
+                menuLayer += 1;
+                settingsController.HideSettings();
+                ResetLayerDefaultPositions(false, true);
                 controlsController.ShowControls(true);
             }
+            else if (settingsPosition.x == 5)
+            {
+                menuLayer += 1;
+                settingsController.HideSettings();
+                ResetLayerDefaultPositions(false, true);
+                controlsController.ShowControls(false);
+            }
+            else if (settingsPosition.x == 7)
+            {
+                menuLayer = 1;
+                settingsBackdrop.enabled = false;
+                settingsController.HideSettings();
+            }
+        }
+        else if (menuLayer == 3)
+        {
+            // remap controls
+            if (controlsPosition.x == 7)
+            {
+                menuLayer = 2;
+                controlsController.HideControls();
+                settingsController.ShowSettings();
+            }
+        }
+    }
+
+    private void UpdateSelected()
+    {
+
+    }
+
+    private void ResetLayerDefaultPositions(bool settings, bool controls)
+    {
+        if (settings)
+        {
+            settingsPosition.x = 1;
+            settingsPosition.y = 1;
+        }
+        else if (controls)
+        {
+            controlsPosition.x = 1;
+            controlsPosition.y = 1;
         }
     }
 
@@ -49,9 +175,15 @@ public class MainMenuController : MonoBehaviour, SceneController
     {
         if (menuLayer == 2)
         {
+            menuLayer = 1;
             settingsBackdrop.enabled = false;
-            menuLayer -= 1;
+            settingsController.HideSettings();
+        }
+        else if (menuLayer == 3)
+        {
+            menuLayer = 2;
             controlsController.HideControls();
+            settingsController.ShowSettings();
         }
     }
 
@@ -62,7 +194,15 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 1)
             {
-                layer1Position = clickAnalysis;
+                mainMenuPosition = clickAnalysis;
+            }
+            else if (menuLayer == 2)
+            {
+                settingsPosition = clickAnalysis;
+            }
+            else if (menuLayer == 3)
+            {
+                controlsPosition = clickAnalysis;
             }
             Select();
         }
@@ -70,6 +210,21 @@ public class MainMenuController : MonoBehaviour, SceneController
 
     public void Point(Vector2 pointerLocation)
     {
-
+        Vector2Int clickAnalysis = Util.ReturnPositionFromMouse(pointerLocation, menuLayer, sceneClickables);
+        if (pointerLocation.x != 0)
+        {
+            if (menuLayer == 1)
+            {
+                mainMenuPosition = clickAnalysis;
+            }
+            else if (menuLayer == 2)
+            {
+                settingsPosition = clickAnalysis;
+            }
+            else if (menuLayer == 3)
+            {
+                controlsPosition = clickAnalysis;
+            }
+        }
     }
 }

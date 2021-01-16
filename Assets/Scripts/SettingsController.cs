@@ -12,11 +12,11 @@ public class SettingsController : MonoBehaviour
 
     void Start()
     {
-        foreach (GameObject controlsObject in GameObject.FindGameObjectsWithTag("controls"))
+        foreach (GameObject settingsObject in GameObject.FindGameObjectsWithTag("settings"))
         {
-            if (controlsObject.GetComponent<TextMeshPro>() != null)
+            if (settingsObject.GetComponent<TextMeshPro>() != null)
             {
-                TextMeshPro TMPTextObject = controlsObject.GetComponent<TextMeshPro>();
+                TextMeshPro TMPTextObject = settingsObject.GetComponent<TextMeshPro>();
                 textSettingsObjects.Add(TMPTextObject);
             }
         }
