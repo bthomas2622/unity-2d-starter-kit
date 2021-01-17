@@ -22,6 +22,10 @@ public class MainMenuController : MonoBehaviour, SceneController
     private int menuLayerMax = 2;
     private int settingsPosXMax = 7;
     private int controlsPosXMax = 7;
+
+    private SelectedIcon selectedIconLeft;
+    private SelectedIcon selectedIconRight;
+
     void Awake()
     {
         menuLayer = 1;
@@ -30,11 +34,12 @@ public class MainMenuController : MonoBehaviour, SceneController
         settingsController = GameObject.Find("SettingsController").GetComponent<SettingsController>();
         settingsBackdrop = GameObject.Find("MenuLayer2Backdrop").GetComponent<SpriteRenderer>();
         settingsBackdrop.enabled = false;
+        selectedIconLeft = GameObject.Find("SelectedIconLeft").GetComponent<SelectedIcon>();
+        selectedIconRight = GameObject.Find("SelectedIconRight").GetComponent<SelectedIcon>();
     }
 
     public void Move(Util.Direction direction)
     {
-        Debug.Log(mainMenuPosition);
         if (direction == Util.Direction.up)
         {
             if (menuLayer == 1)
@@ -150,11 +155,15 @@ public class MainMenuController : MonoBehaviour, SceneController
                 settingsController.ShowSettings();
             }
         }
+        UpdateSelected();
     }
 
     private void UpdateSelected()
     {
-
+        int xPositionUpdate = menuLayer == 1 ? mainMenuPosition.x : menuLayer == 2 ? settingsPosition.x : controlsPosition.x;
+        int yPositionUpdate = menuLayer == 1 ? mainMenuPosition.y : menuLayer == 2 ? settingsPosition.y : controlsPosition.y;
+        selectedIconLeft.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate);
+        selectedIconRight.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate);
     }
 
     private void ResetLayerDefaultPositions(bool settings, bool controls)
@@ -185,6 +194,7 @@ public class MainMenuController : MonoBehaviour, SceneController
             controlsController.HideControls();
             settingsController.ShowSettings();
         }
+        UpdateSelected();
     }
 
     public void Click(Vector2 clickLocation)

@@ -56,3 +56,6 @@ TagManager:
   - name: MenuLayer2
     uniqueID: 664995791
     locked: 0
+  - name: MenuSelected
+    uniqueID: 502903663
+    locked: 0
