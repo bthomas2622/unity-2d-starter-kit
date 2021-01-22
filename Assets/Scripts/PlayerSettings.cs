@@ -9,7 +9,14 @@ public class PlayerSettings : MonoBehaviour
     public PlayerInput playerInput;
     private static string defaultBindings = "defaultBindings";
     private static string playerBindings = "playerBindings";
-    private static string colorPalette = "colorPalette";
+    private static string fullScreenMode = "fullscreenMode";
+    private static int fullScreenModeDefault = 1;
+    private static string musicVolume = "musicVolume";
+    private static int musicVolumeDefault = 4;
+    private static string effectsVolume = "effectsVolume";
+    private static int effectsVolumeDefault = 5;
+    private static string language = "language";
+    private static int languageDefault = 1; // 1 - English, 2 - Spanish
 
     public void Awake()
     {
@@ -28,9 +35,24 @@ public class PlayerSettings : MonoBehaviour
                 PlayerPrefs.SetString(playerBindings, launchBindings);
                 PlayerPrefs.Save();
             }
-            if (!PlayerPrefs.HasKey(colorPalette))
+            if (!PlayerPrefs.HasKey(fullScreenMode))
             {
-                PlayerPrefs.SetString(colorPalette, 1.ToString());
+                PlayerPrefs.SetInt(fullScreenMode, fullScreenModeDefault);
+                PlayerPrefs.Save();
+            }
+            if (!PlayerPrefs.HasKey(musicVolume))
+            {
+                PlayerPrefs.SetInt(musicVolume, musicVolumeDefault);
+                PlayerPrefs.Save();
+            }
+            if (!PlayerPrefs.HasKey(effectsVolume))
+            {
+                PlayerPrefs.SetInt(effectsVolume, effectsVolumeDefault);
+                PlayerPrefs.Save();
+            }
+            if (!PlayerPrefs.HasKey(language))
+            {
+                PlayerPrefs.SetInt(language, languageDefault);
                 PlayerPrefs.Save();
             }
         }
@@ -38,6 +60,11 @@ public class PlayerSettings : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Start()
+    {
+        SetFullScreenSettings();
     }
 
     public void RestoreControlDefaults()
@@ -51,5 +78,59 @@ public class PlayerSettings : MonoBehaviour
     {
         string rebinds = playerInput.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
+    }
+
+    public void ChangeFullScreenMode(int newFullScreenMode)
+    {
+        if (newFullScreenMode == 1 || newFullScreenMode == 2)
+        {
+            PlayerPrefs.SetInt(fullScreenMode, newFullScreenMode);
+            PlayerPrefs.Save();
+        }
+        SetFullScreenSettings();
+    }
+
+    public void ChangeMusicVolume(int newMusicVolume)
+    {
+        PlayerPrefs.SetInt(musicVolume, newMusicVolume);
+        PlayerPrefs.Save();
+    }
+
+    public void ChangeEffectsVolume(int newEffectsVolume)
+    {
+        PlayerPrefs.SetInt(effectsVolume, newEffectsVolume);
+        PlayerPrefs.Save();
+    }
+
+    public int GetFullScreenMode()
+    {
+        return PlayerPrefs.GetInt(fullScreenMode);
+    }
+
+    public int GetMusicVolume()
+    {
+        return PlayerPrefs.GetInt(musicVolume);
+    }
+
+    public int GetEffectsVolume()
+    {
+        return PlayerPrefs.GetInt(effectsVolume);
+    }
+
+    public int GetLanguage()
+    {
+        return PlayerPrefs.GetInt(language);
+    }
+
+    private void SetFullScreenSettings()
+    {
+        if (PlayerPrefs.GetInt(fullScreenMode) == 1)
+        {
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        }
+        else if (PlayerPrefs.GetInt(fullScreenMode) == 2)
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
     }
 }

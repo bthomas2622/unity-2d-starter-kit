@@ -65,7 +65,7 @@ public class SelectedIcon : MonoBehaviour
                 else if (x == 7)
                 {
                     selectedSpriteRenderer.sprite = icon;
-                    gameObject.transform.position = new Vector3(-2.9f, -8.48f, 0f);
+                    gameObject.transform.position = new Vector3(-2.9f, -8.5f, 0f);
                 }
             }
         }

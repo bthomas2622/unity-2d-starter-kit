@@ -98,14 +98,14 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 2)
             {
-
+                settingsController.Left(GetSettingOptionFromXPos());
             }
         }
         else if (direction == Util.Direction.right)
         {
             if (menuLayer == 2)
             {
-
+                settingsController.Right(GetSettingOptionFromXPos());
             }
         }
     }
@@ -164,6 +164,10 @@ public class MainMenuController : MonoBehaviour, SceneController
         int yPositionUpdate = menuLayer == 1 ? mainMenuPosition.y : menuLayer == 2 ? settingsPosition.y : controlsPosition.y;
         selectedIconLeft.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate);
         selectedIconRight.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate);
+        if (menuLayer == 2)
+        {
+            settingsController.ChangeSettingSelected(GetSettingOptionFromXPos());
+        }
     }
 
     private void ResetLayerDefaultPositions(bool settings, bool controls)
@@ -235,6 +239,38 @@ public class MainMenuController : MonoBehaviour, SceneController
             {
                 controlsPosition = clickAnalysis;
             }
+        }
+    }
+
+    private SettingsController.SettingOptions GetSettingOptionFromXPos()
+    {
+        if (settingsPosition.x == 1)
+        {
+            return SettingsController.SettingOptions.fullscreen;
+        }
+        else if (settingsPosition.x == 2)
+        {
+            return SettingsController.SettingOptions.musicVolume;
+        }
+        else if (settingsPosition.x == 3)
+        {
+            return SettingsController.SettingOptions.effectsVolume;
+        }
+        else if (settingsPosition.x == 4)
+        {
+            return SettingsController.SettingOptions.keyboardControls;
+        }
+        else if (settingsPosition.x == 5)
+        {
+            return SettingsController.SettingOptions.gamepadControls;
+        }
+        else if (settingsPosition.x == 6)
+        {
+            return SettingsController.SettingOptions.language;
+        }
+        else
+        {
+            return SettingsController.SettingOptions.na;
         }
     }
 }

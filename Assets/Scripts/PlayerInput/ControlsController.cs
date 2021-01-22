@@ -27,6 +27,7 @@ public class ControlsController : MonoBehaviour
                 }
             }
         }
+        HideControls();
     }
 
     public void ShowControls(bool keyboard)
