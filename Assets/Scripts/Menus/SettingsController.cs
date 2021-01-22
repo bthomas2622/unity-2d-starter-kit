@@ -11,6 +11,7 @@ public class SettingsController : MonoBehaviour
     private List<TextMeshPro> textSettingsObjects = new List<TextMeshPro>();
     private MultiArrows multiArrows;
     public enum SettingOptions { fullscreen, musicVolume, effectsVolume, keyboardControls, gamepadControls, language, na };
+    private SettingOptions curSettingOpt = SettingOptions.fullscreen;
 
     public TextMeshPro fullscreenChosenText;
     public TextMeshPro musicVolumeChosenText;
@@ -50,7 +51,7 @@ public class SettingsController : MonoBehaviour
         {
             settingsText.enabled = true;
         }
-        multiArrows.SetLeftArrow(true);
+        DisplayCorrectArrows(curSettingOpt);
     }
 
     public void HideSettings()
@@ -60,11 +61,13 @@ public class SettingsController : MonoBehaviour
         {
             settingsText.enabled = false;
         }
+        multiArrows.HideArrows();
     }
 
     public void ChangeSettingSelected(SettingOptions settingOptionsSelected)
     {
-        DisplayCorrectArrows(settingOptionsSelected);
+        curSettingOpt = settingOptionsSelected;
+        DisplayCorrectArrows(curSettingOpt);
         if (settingOptionsSelected == SettingOptions.fullscreen)
         {
             multiArrows.SetPosition(fullscreenChosenText.gameObject.transform.position);

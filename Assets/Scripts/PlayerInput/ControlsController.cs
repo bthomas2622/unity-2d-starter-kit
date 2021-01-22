@@ -13,6 +13,24 @@ public class ControlsController : MonoBehaviour
     private List<TextMeshPro> textControlObjects = new List<TextMeshPro>();
     private List<ControlsBindingText> controlsBindingTexts = new List<ControlsBindingText>();
 
+    public enum ControlsOptions { selectOne, selectTwo, backOne, backTwo, upOne, upTwo, rightOne, rightTwo, downOne, downTwo, leftOne, leftTwo, exit, reset };
+    private ControlsOptions curControlSelected = ControlsOptions.selectOne;
+
+    public TextMeshPro select1;
+    public TextMeshPro select2;
+    public TextMeshPro back1;
+    public TextMeshPro back2;
+    public TextMeshPro up1;
+    public TextMeshPro up2;
+    public TextMeshPro right1;
+    public TextMeshPro right2;
+    public TextMeshPro down1;
+    public TextMeshPro down2;
+    public TextMeshPro left1;
+    public TextMeshPro left2;
+    public TextMeshPro exit;
+    public TextMeshPro reset;
+
     void Start()
     {
         foreach (GameObject controlsObject in GameObject.FindGameObjectsWithTag("controls"))
@@ -50,6 +68,20 @@ public class ControlsController : MonoBehaviour
         foreach (TextMeshPro controlsText in textControlObjects)
         {
             controlsText.enabled = false;
+        }
+    }
+
+    public void ChangeControlSelected(ControlsOptions newControlSelected)
+    {
+        curControlSelected = newControlSelected;
+    }
+
+    public void RemapSelectedControl()
+    {
+        Debug.Log("remapping");
+        if (curControlSelected == ControlsOptions.selectOne)
+        {
+            select1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
         }
     }
 }

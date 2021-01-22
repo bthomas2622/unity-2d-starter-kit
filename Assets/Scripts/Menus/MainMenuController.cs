@@ -47,7 +47,6 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (mainMenuPosition.x > 1)
                 {
                     mainMenuPosition.x -= 1;
-                    UpdateSelected();
                 }
             }
             else if (menuLayer == 2)
@@ -55,7 +54,6 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (settingsPosition.x > 1)
                 {
                     settingsPosition.x -= 1;
-                    UpdateSelected();
                 }
             }
             else if (menuLayer == 3)
@@ -63,7 +61,6 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (controlsPosition.x > 1)
                 {
                     controlsPosition.x -= 1;
-                    UpdateSelected();
                 }
             }
         }
@@ -74,7 +71,6 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (mainMenuPosition.x < menuLayerMax)
                 {
                     mainMenuPosition.x += 1;
-                    UpdateSelected();
                 }
             }
             else if (menuLayer == 2)
@@ -82,7 +78,6 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (settingsPosition.x < settingsPosXMax)
                 {
                     settingsPosition.x += 1;
-                    UpdateSelected();
                 }
             }
             else if (menuLayer == 3)
@@ -90,7 +85,6 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (controlsPosition.x < controlsPosXMax)
                 {
                     controlsPosition.x += 1;
-                    UpdateSelected();
                 }
             }
         }
@@ -100,6 +94,13 @@ public class MainMenuController : MonoBehaviour, SceneController
             {
                 settingsController.Left(GetSettingOptionFromXPos());
             }
+            else if (menuLayer == 3)
+            {
+                if (controlsPosition.y == 2)
+                {
+                    controlsPosition.y -= 1;
+                }
+            }
         }
         else if (direction == Util.Direction.right)
         {
@@ -107,7 +108,15 @@ public class MainMenuController : MonoBehaviour, SceneController
             {
                 settingsController.Right(GetSettingOptionFromXPos());
             }
+            else if (menuLayer == 3)
+            {
+                if (controlsPosition.y == 1)
+                {
+                    controlsPosition.y += 1;
+                }
+            }
         }
+        UpdateSelected();
     }
 
     public void Select()
@@ -147,12 +156,22 @@ public class MainMenuController : MonoBehaviour, SceneController
         }
         else if (menuLayer == 3)
         {
-            // remap controls
             if (controlsPosition.x == 7)
             {
-                menuLayer = 2;
-                controlsController.HideControls();
-                settingsController.ShowSettings();
+                if (controlsPosition.y == 1)
+                {
+                    menuLayer = 2;
+                    controlsController.HideControls();
+                    settingsController.ShowSettings();
+                }
+                else
+                {
+                    // Reset defaults
+                }
+            }
+            else
+            {
+                controlsController.RemapSelectedControl();
             }
         }
         UpdateSelected();
@@ -238,6 +257,87 @@ public class MainMenuController : MonoBehaviour, SceneController
             else if (menuLayer == 3)
             {
                 controlsPosition = clickAnalysis;
+            }
+        }
+    }
+
+    private ControlsController.ControlsOptions GetControlsOptionFromXYPos()
+    {
+        if (controlsPosition.x == 1)
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.selectOne;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.selectTwo;
+            }
+        }
+        else if (controlsPosition.x == 2)
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.backOne;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.backTwo;
+            }
+        }
+        else if (controlsPosition.x == 3)
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.upOne;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.upTwo;
+            }
+        }
+        else if (controlsPosition.x == 4)
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.downOne;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.downTwo;
+            }
+        }
+        else if (controlsPosition.x == 5)
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.leftOne;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.leftTwo;
+            }
+        }
+        else if (controlsPosition.x == 6)
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.rightOne;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.rightTwo;
+            }
+        }
+        else
+        {
+            if (controlsPosition.y == 1)
+            {
+                return ControlsController.ControlsOptions.exit;
+            }
+            else
+            {
+                return ControlsController.ControlsOptions.reset;
             }
         }
     }

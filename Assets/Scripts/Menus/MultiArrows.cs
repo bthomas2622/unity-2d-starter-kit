@@ -14,7 +14,7 @@ public class MultiArrows : MonoBehaviour
     private MultiArrowAnimate rightArrowScript;
     private float arrowOffset = 6f;
 
-    void Start()
+    void Awake()
     {
         rightArrow = Instantiate(rightArrowPrefab, transform.position, Quaternion.identity);
         leftArrow = Instantiate(leftArrowPrefab, transform.position, Quaternion.identity);
