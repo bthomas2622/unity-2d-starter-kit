@@ -166,12 +166,13 @@ public class MainMenuController : MonoBehaviour, SceneController
                 }
                 else
                 {
-                    // Reset defaults
+                    PlayerSettings.Instance.RestoreControlDefaults();
+                    controlsController.ReDisplayCorrectBindings();
                 }
             }
             else
             {
-                controlsController.RemapSelectedControl();
+                controlsController.RemapSelectedControl(GetControlsOptionFromXYPos());
             }
         }
         UpdateSelected();

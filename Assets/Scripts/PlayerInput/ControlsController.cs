@@ -14,7 +14,6 @@ public class ControlsController : MonoBehaviour
     private List<ControlsBindingText> controlsBindingTexts = new List<ControlsBindingText>();
 
     public enum ControlsOptions { selectOne, selectTwo, backOne, backTwo, upOne, upTwo, rightOne, rightTwo, downOne, downTwo, leftOne, leftTwo, exit, reset };
-    private ControlsOptions curControlSelected = ControlsOptions.selectOne;
 
     public TextMeshPro select1;
     public TextMeshPro select2;
@@ -71,17 +70,63 @@ public class ControlsController : MonoBehaviour
         }
     }
 
-    public void ChangeControlSelected(ControlsOptions newControlSelected)
+    public void ReDisplayCorrectBindings()
     {
-        curControlSelected = newControlSelected;
+        foreach(ControlsBindingText textToReDisplay in controlsBindingTexts)
+        {
+            textToReDisplay.UpdateDisplayText();
+        }
     }
 
-    public void RemapSelectedControl()
+    public void RemapSelectedControl(ControlsOptions curControlSelected)
     {
-        Debug.Log("remapping");
         if (curControlSelected == ControlsOptions.selectOne)
         {
             select1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.selectTwo)
+        {
+            select2.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.backOne)
+        {
+            back1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.backTwo)
+        {
+            back2.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.upOne)
+        {
+            up1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.upTwo)
+        {
+            up2.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.rightOne)
+        {
+            right1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.rightTwo)
+        {
+            right2.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.leftOne)
+        {
+            left1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.leftTwo)
+        {
+            left2.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.downOne)
+        {
+            down1.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
+        }
+        else if (curControlSelected == ControlsOptions.downTwo)
+        {
+            down2.gameObject.GetComponent<ControlsBindingText>().StartRebinding();
         }
     }
 }

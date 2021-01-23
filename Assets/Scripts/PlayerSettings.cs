@@ -72,12 +72,14 @@ public class PlayerSettings : MonoBehaviour
         string controlDefaultBindings = PlayerPrefs.GetString(defaultBindings);
         PlayerPrefs.SetString(playerBindings, controlDefaultBindings); ;
         PlayerPrefs.Save();
+        PlayerInputSingleton.Instance.gameObject.GetComponent<PlayerInput>().actions.LoadBindingOverridesFromJson(controlDefaultBindings);
     }
 
     public void SaveUserRebinds()
     {
         string rebinds = playerInput.actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
+        PlayerPrefs.Save();
     }
 
     public void ChangeFullScreenMode(int newFullScreenMode)

@@ -39,7 +39,7 @@ public class ControlsBindingText : MonoBehaviour
         UpdateDisplayText();
     }
 
-    private void UpdateDisplayText()
+    public void UpdateDisplayText()
     {
         string displayText = empty;
         string bindingId = keyboardDisplayStatus ? keyboardBindingId : gamepadBindingId;
