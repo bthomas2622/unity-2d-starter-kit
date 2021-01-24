@@ -26,11 +26,11 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.sprite = selectedIcon;
                 if (x == 1)
                 {
-                    gameObject.transform.position = new Vector3(-5f, -1.75f, 0f);
+                    gameObject.transform.position = new Vector3(-5f, 0f, 0f);
                 }
                 else if (x == 2)
                 {
-                    gameObject.transform.position = new Vector3(-2.75f, -8f, 0f);
+                    gameObject.transform.position = new Vector3(-2.75f, -4f, 0f);
                 }
             }
             else if (layer == 2)
@@ -108,11 +108,11 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.sprite = selectedIcon;
                 if (x == 1)
                 {
-                    gameObject.transform.position = new Vector3(5f, -1.75f, 0f);
+                    gameObject.transform.position = new Vector3(5f, -0f, 0f);
                 }
                 else if (x == 2)
                 {
-                    gameObject.transform.position = new Vector3(2.75f, -8f, 0f);
+                    gameObject.transform.position = new Vector3(2.75f, -4f, 0f);
                 }
             }
             else if (layer == 2)

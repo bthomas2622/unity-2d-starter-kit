@@ -12,7 +12,23 @@ public class MainMenuController : MonoBehaviour, SceneController
     private Vector2Int controlsPosition = new Vector2Int(1, 1);
 
     // xbounds (left to right), ybounds (bottom to top), layer, row, col
-    private List<float> settingsButton = new List<float>() { -1.4f, 1.4f, -9.4f, -6.6f, 1f, 2f, 1f};
+    private List<float> playButton = new List<float>() { -3.5f, 3.5f, -1.5f, 1.5f, 1f, 1f, 1f };
+    private List<float> settingsButton = new List<float>() { -1.4f, 1.4f, -5.5f, -2.5f, 1f, 2f, 1f};
+    private List<float> fullscreen = new List<float>() { 4.6f, 14.6f, 4.65f, 6.65f, 2f, 1f, 1f };
+    private List<float> fullscreenRight = new List<float>() { 14.61f, 16.6f, 4.65f, 6.65f, 2f, 1f, 2f };
+    private List<float> fullscreenLeft = new List<float>() { 2.59f, 4.59f, 4.65f, 6.65f, 2f, 1f, -1f };
+    private List<float> music = new List<float>() { 4.6f, 14.6f, 2.4f, 4.4f, 2f, 2f, 1f };
+    private List<float> musicRight = new List<float>() { 14.61f, 16.6f, 2.4f, 4.4f, 2f, 2f, 2f };
+    private List<float> musicLeft = new List<float>() { 2.59f, 4.59f, 2.4f, 4.4f, 2f, 2f, -1f };
+    private List<float> effects = new List<float>() { 4.6f, 14.6f, 0.15f, 2.15f, 2f, 3f, 1f };
+    private List<float> effectsRight;
+    private List<float> effectsLeft;
+    private List<float> keyboardSettings = new List<float>() { 4.6f, 14.6f, -2.1f, -0.1f, 2f, 4f, 1f };
+    private List<float> gamepadSettings = new List<float>() { 4.6f, 14.6f, -4.35f, -2.35f, 2f, 5f, 1f };
+    private List<float> language = new List<float>() { 4.6f, 14.6f, -6.6f, -4.6f, 2f, 6f, 1f };
+    private List<float> languageRight;
+    private List<float> languageLeft;
+    private List<float> settingsExit = new List<float>() { -13.5f, 3.5f, -9.5f, -7.5f, 2f, 7f, 1f };
 
     private List<List<float>> sceneClickables = new List<List<float>>();
     private ControlsController controlsController;
@@ -29,7 +45,20 @@ public class MainMenuController : MonoBehaviour, SceneController
     void Awake()
     {
         menuLayer = 1;
+        sceneClickables.Add(playButton);
         sceneClickables.Add(settingsButton);
+        sceneClickables.Add(fullscreen);
+        sceneClickables.Add(music);
+        sceneClickables.Add(effects);
+        sceneClickables.Add(keyboardSettings);
+        sceneClickables.Add(gamepadSettings);
+        sceneClickables.Add(language);
+        sceneClickables.Add(settingsExit);
+        sceneClickables.Add(fullscreenLeft);
+        sceneClickables.Add(fullscreenRight);
+        sceneClickables.Add(musicLeft);
+        sceneClickables.Add(musicRight);
+
         controlsController = GameObject.Find("ControlsController").GetComponent<ControlsController>();
         settingsController = GameObject.Find("SettingsController").GetComponent<SettingsController>();
         settingsBackdrop = GameObject.Find("MenuLayer2Backdrop").GetComponent<SpriteRenderer>();
@@ -224,7 +253,7 @@ public class MainMenuController : MonoBehaviour, SceneController
     public void Click(Vector2 clickLocation)
     {
         Vector2Int clickAnalysis = Util.ReturnPositionFromMouse(clickLocation, menuLayer, sceneClickables);
-        if (clickLocation.x != 0)
+        if (clickAnalysis.x != 0)
         {
             if (menuLayer == 1)
             {
@@ -232,7 +261,18 @@ public class MainMenuController : MonoBehaviour, SceneController
             }
             else if (menuLayer == 2)
             {
-                settingsPosition = clickAnalysis;
+                if (clickAnalysis.y == -1)
+                {
+                    Move(Util.Direction.left);
+                }
+                else if (clickAnalysis.y == 2)
+                {
+                    Move(Util.Direction.right);
+                }
+                else
+                {
+                    settingsPosition = clickAnalysis;
+                }
             }
             else if (menuLayer == 3)
             {
@@ -244,21 +284,22 @@ public class MainMenuController : MonoBehaviour, SceneController
 
     public void Point(Vector2 pointerLocation)
     {
-        Vector2Int clickAnalysis = Util.ReturnPositionFromMouse(pointerLocation, menuLayer, sceneClickables);
-        if (pointerLocation.x != 0)
+        Vector2Int pointAnalysis = Util.ReturnPositionFromMouse(pointerLocation, menuLayer, sceneClickables);
+        if (pointAnalysis.x != 0)
         {
             if (menuLayer == 1)
             {
-                mainMenuPosition = clickAnalysis;
+                mainMenuPosition = pointAnalysis;
             }
             else if (menuLayer == 2)
             {
-                settingsPosition = clickAnalysis;
+                settingsPosition = pointAnalysis;
             }
             else if (menuLayer == 3)
             {
-                controlsPosition = clickAnalysis;
+                controlsPosition = pointAnalysis;
             }
+            UpdateSelected();
         }
     }
 

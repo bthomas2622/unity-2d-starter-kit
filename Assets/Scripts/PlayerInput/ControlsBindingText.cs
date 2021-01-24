@@ -89,5 +89,6 @@ public class ControlsBindingText : MonoBehaviour
         UpdateDisplayText();
         rebindingOperation.Dispose();
         bindingAction.Enable();
+        PlayerSettings.Instance.SaveUserRebinds();
     }
 }
