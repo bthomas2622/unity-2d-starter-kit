@@ -12,8 +12,10 @@ public class MainMenuController : MonoBehaviour, SceneController
     private Vector2Int controlsPosition = new Vector2Int(1, 1);
 
     // xbounds (left to right), ybounds (bottom to top), layer, row, col
+    // layer 1
     private List<float> playButton = new List<float>() { -3.5f, 3.5f, -1.5f, 1.5f, 1f, 1f, 1f };
     private List<float> settingsButton = new List<float>() { -1.4f, 1.4f, -5.5f, -2.5f, 1f, 2f, 1f};
+    // layer 2
     private List<float> fullscreen = new List<float>() { 4.6f, 14.6f, 4.65f, 6.65f, 2f, 1f, 1f };
     private List<float> fullscreenRight = new List<float>() { 14.61f, 16.6f, 4.65f, 6.65f, 2f, 1f, 2f };
     private List<float> fullscreenLeft = new List<float>() { 2.59f, 4.59f, 4.65f, 6.65f, 2f, 1f, -1f };
@@ -21,14 +23,30 @@ public class MainMenuController : MonoBehaviour, SceneController
     private List<float> musicRight = new List<float>() { 14.61f, 16.6f, 2.4f, 4.4f, 2f, 2f, 2f };
     private List<float> musicLeft = new List<float>() { 2.59f, 4.59f, 2.4f, 4.4f, 2f, 2f, -1f };
     private List<float> effects = new List<float>() { 4.6f, 14.6f, 0.15f, 2.15f, 2f, 3f, 1f };
-    private List<float> effectsRight;
-    private List<float> effectsLeft;
+    private List<float> effectsRight = new List<float>() { 14.61f, 16.6f, 0.15f, 2.15f, 2f, 3f, 2f };
+    private List<float> effectsLeft = new List<float>() { 2.59f, 4.59f, 0.15f, 2.15f, 2f, 3f, -1f };
     private List<float> keyboardSettings = new List<float>() { 4.6f, 14.6f, -2.1f, -0.1f, 2f, 4f, 1f };
     private List<float> gamepadSettings = new List<float>() { 4.6f, 14.6f, -4.35f, -2.35f, 2f, 5f, 1f };
     private List<float> language = new List<float>() { 4.6f, 14.6f, -6.6f, -4.6f, 2f, 6f, 1f };
-    private List<float> languageRight;
-    private List<float> languageLeft;
+    private List<float> languageRight = new List<float>() { 14.61f, 16.6f, -6.6f, -4.6f, 2f, 6f, 2f };
+    private List<float> languageLeft = new List<float>() { 2.59f, 4.59f, -6.6f, -4.6f, 2f, 6f, -1f };
     private List<float> settingsExit = new List<float>() { -13.5f, 3.5f, -9.5f, -7.5f, 2f, 7f, 1f };
+    // layer 3
+    private List<float> select1 = new List<float>() { 1.25f, 8.75f, 4.65f, 6.65f, 3f, 1f, 1f };
+    private List<float> select2 = new List<float>() { 9.25f, 16.75f, 4.65f, 6.65f, 3f, 1f, 2f };
+    private List<float> back1 = new List<float>() { 1.25f, 8.75f, 2.4f, 4.4f, 3f, 2f, 1f };
+    private List<float> back2 = new List<float>() { 9.25f, 16.75f, 2.4f, 4.4f, 3f, 2f, 2f };
+    private List<float> up1 = new List<float>() { 1.25f, 8.75f, 0.15f, 2.15f, 3f, 3f, 1f };
+    private List<float> up2 = new List<float>() { 9.25f, 16.75f, 0.15f, 2.15f, 3f, 3f, 2f };
+    private List<float> down1 = new List<float>() { 1.25f, 8.75f, -2.1f, -0.1f, 3f, 4f, 1f };
+    private List<float> down2 = new List<float>() { 9.25f, 16.75f, -2.1f, -0.1f, 3f, 4f, 2f };
+    private List<float> right1 = new List<float>() { 1.25f, 8.75f, -6.6f, -4.6f, 3f, 6f, 1f };
+    private List<float> right2 = new List<float>() { 9.25f, 16.75f, -6.6f, -4.6f, 3f, 6f, 2f };
+    private List<float> left1 = new List<float>() { 1.25f, 8.75f, -4.35f, -2.35f, 3f, 5f, 1f };
+    private List<float> left2 = new List<float>() { 9.25f, 16.75f, -4.35f, -2.35f, 3f, 5f, 2f };
+    private List<float> controlsExit = new List<float>() { -13.5f, 3.5f, -9.5f, -7.5f, 3f, 7f, 1f };
+    private List<float> controlsReset = new List<float>() { 5f, 15f, -9.5f, -7.5f, 3f, 7f, 2f };
+
 
     private List<List<float>> sceneClickables = new List<List<float>>();
     private ControlsController controlsController;
@@ -58,6 +76,24 @@ public class MainMenuController : MonoBehaviour, SceneController
         sceneClickables.Add(fullscreenRight);
         sceneClickables.Add(musicLeft);
         sceneClickables.Add(musicRight);
+        sceneClickables.Add(effectsLeft);
+        sceneClickables.Add(effectsRight);
+        sceneClickables.Add(languageLeft);
+        sceneClickables.Add(languageRight);
+        sceneClickables.Add(select1);
+        sceneClickables.Add(select2);
+        sceneClickables.Add(back1);
+        sceneClickables.Add(back2);
+        sceneClickables.Add(up1);
+        sceneClickables.Add(up2);
+        sceneClickables.Add(down1);
+        sceneClickables.Add(down2);
+        sceneClickables.Add(right1);
+        sceneClickables.Add(right2);
+        sceneClickables.Add(left1);
+        sceneClickables.Add(left2);
+        sceneClickables.Add(controlsExit);
+        sceneClickables.Add(controlsReset);
 
         controlsController = GameObject.Find("ControlsController").GetComponent<ControlsController>();
         settingsController = GameObject.Find("SettingsController").GetComponent<SettingsController>();
