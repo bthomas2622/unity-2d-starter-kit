@@ -112,6 +112,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (mainMenuPosition.x > 1)
                 {
                     mainMenuPosition.x -= 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
             else if (menuLayer == 2)
@@ -119,6 +120,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (settingsPosition.x > 1)
                 {
                     settingsPosition.x -= 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
             else if (menuLayer == 3)
@@ -126,6 +128,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (controlsPosition.x > 1)
                 {
                     controlsPosition.x -= 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
         }
@@ -136,6 +139,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (mainMenuPosition.x < menuLayerMax)
                 {
                     mainMenuPosition.x += 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
             else if (menuLayer == 2)
@@ -143,6 +147,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (settingsPosition.x < settingsPosXMax)
                 {
                     settingsPosition.x += 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
             else if (menuLayer == 3)
@@ -150,6 +155,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (controlsPosition.x < controlsPosXMax)
                 {
                     controlsPosition.x += 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
         }
@@ -164,6 +170,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (controlsPosition.y == 2)
                 {
                     controlsPosition.y -= 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
         }
@@ -178,6 +185,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 if (controlsPosition.y == 1)
                 {
                     controlsPosition.y += 1;
+                    AudioManager.Instance.PlayMenuMove();
                 }
             }
         }
@@ -194,6 +202,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 ResetLayerDefaultPositions(true, true);
                 settingsBackdrop.enabled = true;
                 settingsController.ShowSettings();
+                AudioManager.Instance.PlayMenuSelect();
             }
         }
         else if (menuLayer == 2)
@@ -204,6 +213,7 @@ public class MainMenuController : MonoBehaviour, SceneController
                 settingsController.HideSettings();
                 ResetLayerDefaultPositions(false, true);
                 controlsController.ShowControls(true);
+                AudioManager.Instance.PlayMenuSelect();
             }
             else if (settingsPosition.x == 5)
             {
@@ -211,12 +221,14 @@ public class MainMenuController : MonoBehaviour, SceneController
                 settingsController.HideSettings();
                 ResetLayerDefaultPositions(false, true);
                 controlsController.ShowControls(false);
+                AudioManager.Instance.PlayMenuSelect();
             }
             else if (settingsPosition.x == 7)
             {
                 menuLayer = 1;
                 settingsBackdrop.enabled = false;
                 settingsController.HideSettings();
+                AudioManager.Instance.PlayMenuSelect();
             }
         }
         else if (menuLayer == 3)
@@ -234,10 +246,12 @@ public class MainMenuController : MonoBehaviour, SceneController
                     PlayerSettings.Instance.RestoreControlDefaults();
                     controlsController.ReDisplayCorrectBindings();
                 }
+                AudioManager.Instance.PlayMenuSelect();
             }
             else
             {
                 controlsController.RemapSelectedControl(GetControlsOptionFromXYPos());
+                AudioManager.Instance.PlayMenuSelect();
             }
         }
         UpdateSelected();
@@ -276,12 +290,14 @@ public class MainMenuController : MonoBehaviour, SceneController
             menuLayer = 1;
             settingsBackdrop.enabled = false;
             settingsController.HideSettings();
+            AudioManager.Instance.PlayMenuBack();
         }
         else if (menuLayer == 3)
         {
             menuLayer = 2;
             controlsController.HideControls();
             settingsController.ShowSettings();
+            AudioManager.Instance.PlayMenuBack();
         }
         UpdateSelected();
     }
@@ -293,6 +309,10 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 1)
             {
+                if (mainMenuPosition.x != clickAnalysis.x || mainMenuPosition.y != clickAnalysis.y)
+                {
+                    AudioManager.Instance.PlayMenuMove();
+                }
                 mainMenuPosition = clickAnalysis;
             }
             else if (menuLayer == 2)
@@ -307,11 +327,19 @@ public class MainMenuController : MonoBehaviour, SceneController
                 }
                 else
                 {
+                    if (settingsPosition.x != clickAnalysis.x)
+                    {
+                        AudioManager.Instance.PlayMenuMove();
+                    }
                     settingsPosition = clickAnalysis;
                 }
             }
             else if (menuLayer == 3)
             {
+                if (controlsPosition.x != clickAnalysis.x || controlsPosition.y != clickAnalysis.y)
+                {
+                    AudioManager.Instance.PlayMenuMove();
+                }
                 controlsPosition = clickAnalysis;
             }
             Select();
@@ -325,14 +353,26 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 1)
             {
+                if (mainMenuPosition.x != pointAnalysis.x || mainMenuPosition.y != pointAnalysis.y)
+                {
+                    AudioManager.Instance.PlayMenuMove();
+                }
                 mainMenuPosition = pointAnalysis;
             }
             else if (menuLayer == 2)
             {
+                if (settingsPosition.x != pointAnalysis.x)
+                {
+                    AudioManager.Instance.PlayMenuMove();
+                }
                 settingsPosition = pointAnalysis;
             }
             else if (menuLayer == 3)
             {
+                if (controlsPosition.x != pointAnalysis.x || controlsPosition.y != pointAnalysis.y)
+                {
+                    AudioManager.Instance.PlayMenuMove();
+                }
                 controlsPosition = pointAnalysis;
             }
             UpdateSelected();

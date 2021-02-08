@@ -98,12 +98,22 @@ public class PlayerSettings : MonoBehaviour
     {
         PlayerPrefs.SetInt(musicVolume, newMusicVolume);
         PlayerPrefs.Save();
+        AudioManager.Instance.UpdateMusicVolume();
     }
 
     public void ChangeEffectsVolume(int newEffectsVolume)
     {
         PlayerPrefs.SetInt(effectsVolume, newEffectsVolume);
         PlayerPrefs.Save();
+        AudioManager.Instance.UpdateEffectsVolume();
+    }
+
+    public void ChangeLanguage(int newLanguage)
+    {
+        PlayerPrefs.SetInt(language, newLanguage);
+        PlayerPrefs.Save();
+        LocalizationManager.SetLanguage(newLanguage);
+        LocalizationManager.Instance.UpdateAllTexts();
     }
 
     public int GetFullScreenMode()

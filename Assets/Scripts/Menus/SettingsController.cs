@@ -162,7 +162,22 @@ public class SettingsController : MonoBehaviour
         }
         else if (settingOptionsSelected == SettingOptions.language)
         {
-            multiArrows.HideArrows();
+            if (languageChosen > 1)
+            {
+                multiArrows.SetLeftArrow(true);
+            }
+            else
+            {
+                multiArrows.SetLeftArrow(false);
+            }
+            if (languageChosen < 2)
+            {
+                multiArrows.SetRightArrow(true);
+            }
+            else
+            {
+                multiArrows.SetRightArrow(false);
+            }
         }
         else
         {
@@ -180,6 +195,7 @@ public class SettingsController : MonoBehaviour
                 PlayerSettings.Instance.ChangeFullScreenMode(fullscreenChosen);
                 fullscreenChosenText.text = ConvertPlayerSettingIntToString(fullscreenChosen, SettingOptions.fullscreen);
                 DisplayCorrectArrows(settingOptionSelected);
+                AudioManager.Instance.PlayMenuMove();
             }
         }
         else if (settingOptionSelected == SettingOptions.musicVolume)
@@ -194,6 +210,7 @@ public class SettingsController : MonoBehaviour
                 {
                     multiArrows.FlickerArrow(true);
                 }
+                AudioManager.Instance.PlayMenuMove();
             }
         }
         else if (settingOptionSelected == SettingOptions.effectsVolume)
@@ -201,13 +218,29 @@ public class SettingsController : MonoBehaviour
             if (effectsChosen > 0)
             {
                 effectsChosen -= 1;
-                PlayerSettings.Instance.ChangeMusicVolume(effectsChosen);
+                PlayerSettings.Instance.ChangeEffectsVolume(effectsChosen);
                 effectsVolumeChosenText.text = ConvertPlayerSettingIntToString(effectsChosen, SettingOptions.effectsVolume);
                 DisplayCorrectArrows(settingOptionSelected);
                 if (effectsChosen > 0)
                 {
                     multiArrows.FlickerArrow(true);
                 }
+                AudioManager.Instance.PlayMenuMove();
+            }
+        }
+        else if (settingOptionSelected == SettingOptions.language)
+        {
+            if (languageChosen > 1)
+            {
+                languageChosen -= 1;
+                PlayerSettings.Instance.ChangeLanguage(languageChosen);
+                languageChosenText.text = ConvertPlayerSettingIntToString(languageChosen, SettingOptions.language);
+                DisplayCorrectArrows(settingOptionSelected);
+                if (effectsChosen > 1)
+                {
+                    multiArrows.FlickerArrow(false);
+                }
+                AudioManager.Instance.PlayMenuMove();
             }
         }
     }
@@ -222,6 +255,7 @@ public class SettingsController : MonoBehaviour
                 PlayerSettings.Instance.ChangeFullScreenMode(fullscreenChosen);
                 fullscreenChosenText.text = ConvertPlayerSettingIntToString(fullscreenChosen, SettingOptions.fullscreen);
                 DisplayCorrectArrows(settingOptionSelected);
+                AudioManager.Instance.PlayMenuMove();
             }
         }
         else if (settingOptionSelected == SettingOptions.musicVolume)
@@ -236,6 +270,7 @@ public class SettingsController : MonoBehaviour
                 {
                     multiArrows.FlickerArrow(false);
                 }
+                AudioManager.Instance.PlayMenuMove();
             }
         }
         else if (settingOptionSelected == SettingOptions.effectsVolume)
@@ -243,13 +278,29 @@ public class SettingsController : MonoBehaviour
             if (effectsChosen < 10)
             {
                 effectsChosen += 1;
-                PlayerSettings.Instance.ChangeMusicVolume(effectsChosen);
+                PlayerSettings.Instance.ChangeEffectsVolume(effectsChosen);
                 effectsVolumeChosenText.text = ConvertPlayerSettingIntToString(effectsChosen, SettingOptions.effectsVolume);
                 DisplayCorrectArrows(settingOptionSelected);
                 if (effectsChosen < 10)
                 {
                     multiArrows.FlickerArrow(false);
                 }
+                AudioManager.Instance.PlayMenuMove();
+            }
+        }
+        else if (settingOptionSelected == SettingOptions.language)
+        {
+            if (languageChosen < 2)
+            {
+                languageChosen += 1;
+                PlayerSettings.Instance.ChangeLanguage(languageChosen);
+                languageChosenText.text = ConvertPlayerSettingIntToString(languageChosen, SettingOptions.language);
+                DisplayCorrectArrows(settingOptionSelected);
+                if (effectsChosen < 2)
+                {
+                    multiArrows.FlickerArrow(false);
+                }
+                AudioManager.Instance.PlayMenuMove();
             }
         }
     }
@@ -285,9 +336,13 @@ public class SettingsController : MonoBehaviour
             {
                 return "English";
             }
-            else
+            else if (num == 2)
             {
                 return "Espanol";
+            }
+            else
+            {
+                return "English";
             }
         }
         else

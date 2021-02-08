@@ -15,6 +15,7 @@ public class ControlsController : MonoBehaviour
 
     public enum ControlsOptions { selectOne, selectTwo, backOne, backTwo, upOne, upTwo, rightOne, rightTwo, downOne, downTwo, leftOne, leftTwo, exit, reset };
 
+    public TextMeshPro controlsTitle;
     public TextMeshPro select1;
     public TextMeshPro select2;
     public TextMeshPro back1;
@@ -51,6 +52,15 @@ public class ControlsController : MonoBehaviour
     {
         keyboardControlsShown = keyboard;
         controlsEnabled = true;
+        if (keyboardControlsShown)
+        {
+            controlsTitle.text = "Keyboard Controls";
+        }
+        else
+        {
+            controlsTitle.text = "Gamepad Controls";
+        }
+
         foreach(ControlsBindingText controlsBindingText in controlsBindingTexts)
         {
             controlsBindingText.SetKeyboardDisplayStatus(keyboard);
