@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -236,7 +236,7 @@ public class SettingsController : MonoBehaviour
                 PlayerSettings.Instance.ChangeLanguage(languageChosen);
                 languageChosenText.text = ConvertPlayerSettingIntToString(languageChosen, SettingOptions.language);
                 DisplayCorrectArrows(settingOptionSelected);
-                if (effectsChosen > 1)
+                if (languageChosen > 1)
                 {
                     multiArrows.FlickerArrow(false);
                 }
@@ -290,13 +290,13 @@ public class SettingsController : MonoBehaviour
         }
         else if (settingOptionSelected == SettingOptions.language)
         {
-            if (languageChosen < 2)
+            if (languageChosen < 3)
             {
                 languageChosen += 1;
                 PlayerSettings.Instance.ChangeLanguage(languageChosen);
                 languageChosenText.text = ConvertPlayerSettingIntToString(languageChosen, SettingOptions.language);
                 DisplayCorrectArrows(settingOptionSelected);
-                if (effectsChosen < 2)
+                if (languageChosen < 2)
                 {
                     multiArrows.FlickerArrow(false);
                 }
@@ -338,7 +338,11 @@ public class SettingsController : MonoBehaviour
             }
             else if (num == 2)
             {
-                return "Espanol";
+                return "Español";
+            }
+            else if (num == 3)
+            {
+                return "简体中文";
             }
             else
             {
