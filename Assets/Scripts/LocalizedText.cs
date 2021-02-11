@@ -9,7 +9,7 @@ public class LocalizedText : MonoBehaviour
     public string text_id;
     private TextMeshPro textObject;
 
-    void Start()
+    void Awake()
     {
         textObject = gameObject.GetComponent<TextMeshPro>();
         if (!SceneManager.GetActiveScene().Equals("MainMenu")) {

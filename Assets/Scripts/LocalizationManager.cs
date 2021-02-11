@@ -6,10 +6,11 @@ public class LocalizationManager : MonoBehaviour
 {
     public static LocalizationManager Instance;
 
-    public enum Language { English, Spanish };
+    public enum Language { English, Spanish, SimplifiedChinese };
     private static Language curLanguage = Language.English;
     public static Dictionary<string, string> localizedEN;
     public static Dictionary<string, string> localizedES;
+    public static Dictionary<string, string> localizedSC;
     public static bool isInit;
 
     void Awake()
@@ -48,6 +49,7 @@ public class LocalizationManager : MonoBehaviour
 
         localizedEN = csvLoader.GetDictionaryValues("en");
         localizedES = csvLoader.GetDictionaryValues("es");
+        localizedSC = csvLoader.GetDictionaryValues("sc");
 
         isInit = true;
     }
@@ -65,6 +67,12 @@ public class LocalizationManager : MonoBehaviour
             case Language.Spanish:
                 localizedES.TryGetValue(key, out value);
                 break;
+            case Language.SimplifiedChinese:
+                localizedSC.TryGetValue(key, out value);
+                break;
+            default:
+                localizedEN.TryGetValue(key, out value);
+                break;
         }
         return value;
     }
@@ -80,6 +88,10 @@ public class LocalizationManager : MonoBehaviour
         else if (languageNum == 2)
         {
             curLanguage = Language.Spanish;
+        }
+        else if (languageNum == 3)
+        {
+            curLanguage = Language.SimplifiedChinese;
         }
         else
         {

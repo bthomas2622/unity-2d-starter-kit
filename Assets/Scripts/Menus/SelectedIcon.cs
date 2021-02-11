@@ -26,47 +26,44 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.sprite = selectedIcon;
                 if (x == 1)
                 {
-                    gameObject.transform.position = new Vector3(-5.5f, 0f, 0f);
+                    gameObject.transform.position = new Vector3(-8f, 0f, 0f);
                 }
                 else if (x == 2)
                 {
-                    gameObject.transform.position = new Vector3(-5.5f, -4f, 0f);
+                    gameObject.transform.position = new Vector3(-8f, -4f, 0f);
                 }
             }
             else if (layer == 2)
             {
-                if (x < 7)
+                selectedSpriteRenderer.sprite = settingsUnderline;
+                if (x == 1)
                 {
-                    selectedSpriteRenderer.sprite = settingsUnderline;
-                    if (x == 1)
-                    {
-                        gameObject.transform.position = new Vector3(-8f, 4.75f, 0f);
-                    }
-                    else if (x == 2)
-                    {
-                        gameObject.transform.position = new Vector3(-8f, 2.5f, 0f);
-                    }
-                    else if (x == 3)
-                    {
-                        gameObject.transform.position = new Vector3(-8f, 0.25f, 0f);
-                    }
-                    else if (x == 4)
-                    {
-                        gameObject.transform.position = new Vector3(-8f, -2f, 0f);
-                    }
-                    else if (x == 5)
-                    {
-                        gameObject.transform.position = new Vector3(-8f, -4.25f, 0f);
-                    }
-                    else if (x == 6)
-                    {
-                        gameObject.transform.position = new Vector3(-8f, -6.5f, 0f);
-                    }
+                    gameObject.transform.position = new Vector3(-8f, 4.75f, 0f);
                 }
-                else if (x == 7)
+                else if (x == 2)
                 {
-                    selectedSpriteRenderer.sprite = selectedIcon;
-                    gameObject.transform.position = new Vector3(-2.9f, -8.5f, 0f);
+                    gameObject.transform.position = new Vector3(-8f, 2.5f, 0f);
+                }
+                else if (x == 3)
+                {
+                    gameObject.transform.position = new Vector3(-8f, 0.25f, 0f);
+                }
+                else if (x == 4)
+                {
+                    gameObject.transform.position = new Vector3(-8f, -2f, 0f);
+                }
+                else if (x == 5)
+                {
+                    gameObject.transform.position = new Vector3(-8f, -4.25f, 0f);
+                }
+                else if (x == 6)
+                {
+                    gameObject.transform.position = new Vector3(-8f, -6.5f, 0f);
+                }
+                else
+                {
+                    selectedSpriteRenderer.sprite = controlsUnderline;
+                    gameObject.transform.position = new Vector3(0f, -10f, 0f);
                 }
             }
             else if (layer == 3)
@@ -88,14 +85,13 @@ public class SelectedIcon : MonoBehaviour
                 }
                 else if (x == 7)
                 {
-                    selectedSpriteRenderer.sprite = selectedIcon;
                     if (y == 1)
                     {
-                        gameObject.transform.position = new Vector3(-2.9f, -8.5f, 0f);
+                        gameObject.transform.position = new Vector3(0f, -10f, 0f);
                     }
                     else if (y == 2)
                     {
-                        gameObject.transform.position = new Vector3(6f, -8.5f, 0f);
+                        gameObject.transform.position = new Vector3(11.5f, -10f, 0f);
                     }
                 }
             }
@@ -108,43 +104,20 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.sprite = selectedIcon;
                 if (x == 1)
                 {
-                    gameObject.transform.position = new Vector3(5.5f, 0f, 0f);
+                    gameObject.transform.position = new Vector3(8f, 0f, 0f);
                 }
                 else if (x == 2)
                 {
-                    gameObject.transform.position = new Vector3(5.5f, -4f, 0f);
+                    gameObject.transform.position = new Vector3(8f, -4f, 0f);
                 }
             }
             else if (layer == 2)
             {
-                if (x < 7)
-                {
-                    selectedSpriteRenderer.enabled = false;
-                }
-                else if (x == 7)
-                {
-                    selectedSpriteRenderer.sprite = selectedIcon;
-                    gameObject.transform.position = new Vector3(2.9f, -8.48f, 0f);
-                }
+                selectedSpriteRenderer.enabled = false;
             }
             else if (layer == 3)
             {
-                if (x == 7)
-                {
-                    selectedSpriteRenderer.sprite = selectedIcon;
-                    if (y == 1)
-                    {
-                        gameObject.transform.position = new Vector3(2.9f, -8.5f, 0f);
-                    }
-                    else if (y == 2)
-                    {
-                        gameObject.transform.position = new Vector3(14f, -8.5f, 0f);
-                    }
-                }
-                else
-                {
-                    selectedSpriteRenderer.enabled = false;
-                }
+                selectedSpriteRenderer.enabled = false;
             }
         }
     }

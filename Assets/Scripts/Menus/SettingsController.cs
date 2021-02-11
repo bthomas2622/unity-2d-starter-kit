@@ -24,6 +24,7 @@ public class SettingsController : MonoBehaviour
     private int musicChosen;
     private int effectsChosen;
     private int languageChosen;
+    private int numLanguages = 3;
     
     void Start()
     {
@@ -51,6 +52,7 @@ public class SettingsController : MonoBehaviour
         {
             settingsText.enabled = true;
         }
+        fullscreenChosenText.text = ConvertPlayerSettingIntToString(fullscreenChosen, SettingOptions.fullscreen);
         DisplayCorrectArrows(curSettingOpt);
     }
 
@@ -170,7 +172,7 @@ public class SettingsController : MonoBehaviour
             {
                 multiArrows.SetLeftArrow(false);
             }
-            if (languageChosen < 2)
+            if (languageChosen < numLanguages)
             {
                 multiArrows.SetRightArrow(true);
             }
@@ -238,7 +240,7 @@ public class SettingsController : MonoBehaviour
                 DisplayCorrectArrows(settingOptionSelected);
                 if (languageChosen > 1)
                 {
-                    multiArrows.FlickerArrow(false);
+                    multiArrows.FlickerArrow(true);
                 }
                 AudioManager.Instance.PlayMenuMove();
             }
@@ -296,7 +298,7 @@ public class SettingsController : MonoBehaviour
                 PlayerSettings.Instance.ChangeLanguage(languageChosen);
                 languageChosenText.text = ConvertPlayerSettingIntToString(languageChosen, SettingOptions.language);
                 DisplayCorrectArrows(settingOptionSelected);
-                if (languageChosen < 2)
+                if (languageChosen < numLanguages)
                 {
                     multiArrows.FlickerArrow(false);
                 }
@@ -319,11 +321,11 @@ public class SettingsController : MonoBehaviour
         {
             if (num == 1)
             {
-                return "Yes";
+                return LocalizationManager.GetLocalizedValue("yes");
             }
             else
             {
-                return "No";
+                return LocalizationManager.GetLocalizedValue("no");
             }
         }
         else if (settingOption == SettingOptions.musicVolume || settingOption == SettingOptions.effectsVolume)

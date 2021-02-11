@@ -54,11 +54,11 @@ public class ControlsController : MonoBehaviour
         controlsEnabled = true;
         if (keyboardControlsShown)
         {
-            controlsTitle.text = "Keyboard Controls";
+            controlsTitle.text = LocalizationManager.GetLocalizedValue("keyboard_controls"); ;
         }
         else
         {
-            controlsTitle.text = "Gamepad Controls";
+            controlsTitle.text = LocalizationManager.GetLocalizedValue("gamepad_controls");
         }
 
         foreach(ControlsBindingText controlsBindingText in controlsBindingTexts)

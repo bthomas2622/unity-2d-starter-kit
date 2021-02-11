@@ -13,8 +13,8 @@ public class MainMenuController : MonoBehaviour, SceneController
 
     // xbounds (left to right), ybounds (bottom to top), layer, row, col
     // layer 1
-    private List<float> playButton = new List<float>() { -3.5f, 3.5f, -1.5f, 1.5f, 1f, 1f, 1f };
-    private List<float> settingsButton = new List<float>() { -1.4f, 1.4f, -5.5f, -2.5f, 1f, 2f, 1f};
+    private List<float> playButton = new List<float>() { -4f, 4f, -1.5f, 1.5f, 1f, 1f, 1f };
+    private List<float> settingsButton = new List<float>() { -4f, 4f, -5.5f, -2.5f, 1f, 2f, 1f};
     // layer 2
     private List<float> fullscreen = new List<float>() { 4.6f, 14.6f, 4.65f, 6.65f, 2f, 1f, 1f };
     private List<float> fullscreenRight = new List<float>() { 14.61f, 16.6f, 4.65f, 6.65f, 2f, 1f, 2f };
@@ -30,7 +30,7 @@ public class MainMenuController : MonoBehaviour, SceneController
     private List<float> language = new List<float>() { 4.6f, 14.6f, -6.6f, -4.6f, 2f, 6f, 1f };
     private List<float> languageRight = new List<float>() { 14.61f, 16.6f, -6.6f, -4.6f, 2f, 6f, 2f };
     private List<float> languageLeft = new List<float>() { 2.59f, 4.59f, -6.6f, -4.6f, 2f, 6f, -1f };
-    private List<float> settingsExit = new List<float>() { -13.5f, 3.5f, -9.5f, -7.5f, 2f, 7f, 1f };
+    private List<float> settingsExit = new List<float>() { -4f, 4f, -10.5f, -6.5f, 2f, 7f, 1f };
     // layer 3
     private List<float> select1 = new List<float>() { 1.25f, 8.75f, 4.65f, 6.65f, 3f, 1f, 1f };
     private List<float> select2 = new List<float>() { 9.25f, 16.75f, 4.65f, 6.65f, 3f, 1f, 2f };
@@ -44,8 +44,8 @@ public class MainMenuController : MonoBehaviour, SceneController
     private List<float> right2 = new List<float>() { 9.25f, 16.75f, -6.6f, -4.6f, 3f, 6f, 2f };
     private List<float> left1 = new List<float>() { 1.25f, 8.75f, -4.35f, -2.35f, 3f, 5f, 1f };
     private List<float> left2 = new List<float>() { 9.25f, 16.75f, -4.35f, -2.35f, 3f, 5f, 2f };
-    private List<float> controlsExit = new List<float>() { -13.5f, 3.5f, -9.5f, -7.5f, 3f, 7f, 1f };
-    private List<float> controlsReset = new List<float>() { 5f, 15f, -9.5f, -7.5f, 3f, 7f, 2f };
+    private List<float> controlsExit = new List<float>() { -4f, 4f, -10.5f, -6.5f, 3f, 7f, 1f };
+    private List<float> controlsReset = new List<float>() { 6f, 14f, -10.25f, -6.75f, 3f, 7f, 2f };
 
 
     private List<List<float>> sceneClickables = new List<List<float>>();

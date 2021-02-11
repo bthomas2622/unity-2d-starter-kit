@@ -1,4 +1,4 @@
-"""key""","""en""","""es""","""zh-cn"""
+"""key""","""en""","""es""","""sc"""
 """game_title""","""Game Title""","""Título del juego""","""游戏名称"""
 """play""","""Play""","""Jugar""","""玩"""
 """settings""","""Settings""","""Configuraciones""","""设定值"""
@@ -16,3 +16,7 @@
 """left""","""Left""","""Izquierda""","""剩下"""
 """right""","""Right""","""Derecha""","""对"""
 """restore_defaults""","""Restore Defaults""","""Restaurar los valores predeterminados""","""恢复默认值"""
+"""see_remap""","""See/Remap""","""Ver/Reasignar""","""查看/重新映射"""
+"""yes""","""Yes""","""Sí""","""是"""
+"""no""","""No""","""No""","""否"""
+"""control_help""","""Select control to remap""","""Seleccionar control para reasignar""","""选择要重映射的控件"""
