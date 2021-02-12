@@ -150,3 +150,15 @@ Every text object in the project has a "LocalizedText" script assigned that call
 
 ### Handling different language characters
 
+When I first implemented this localization system all of the chinese characters for Simplified Chinese language chosen were displayed as squares. This was because the font asset each TextMeshPro game object was using did not support chinese characters. 
+
+I decided to import the Google created "Noto Sans" font via .otf files downloaded from Google Fonts. The "Noto" series of fonts is an initiative by google to create a font family that supports almost all known languages. Find all the Noto fonts in the "Assets/Fonts" folder. I then created TextMeshPro font assets from each of these fonts. Designated the "BASE-Noto Sans-Regular SDF" TextMeshPro font asset as the font asset for every text object. Then edited the "BASE-Noto Sans-Regular SDF" asset to designate it's "Fallback Font Assets" to include all the other Noto family font assets (japanese, korean, etc.) so that if it ever didn't have the language character supported it would search its fallbacks. 
+
+# In Conclusion
+
+I hope this additional context about the project is helpful! I didn't want to dive deep into every possible aspect but rather give a surface level overview to the tools presented by the starter kit.
+
+Hope this project helps you in some way!
+
+Cheers,
+Ben
