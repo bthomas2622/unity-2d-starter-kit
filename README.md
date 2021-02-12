@@ -7,10 +7,10 @@ This project is designed to help people get up and running on a 2D Unity project
 Feel free to reach out with questions I am [@freebrunch](https://twitter.com/freebrunch) on Twitter.
 
 ## Features
-1. New Unity Input System configured for mouse + keyboard + gamepad input and remappable controls
-2. Player Settings capable of saving preferences for fullscreen/windowed, music volume, effects volume, keyboard mappings, gamepad mappings, and language.
-3. Audio Manager for playing music and sounds   
-4. Localization Manager for seemless switching between languages
+1. **New Unity Input System** configured for mouse + keyboard + gamepad input and remappable controls
+2. **Player Settings** capable of saving preferences for fullscreen/windowed, music volume, effects volume, keyboard mappings, gamepad mappings, and language.
+3. **Audio Manager** for playing music and sounds   
+4. **Localization Manager** for seemless switching between languages
 
 # Input System
 
@@ -20,9 +20,9 @@ Feel free to reach out with questions I am [@freebrunch](https://twitter.com/fre
 
 I used the [new Unity Input System](https://blogs.unity3d.com/2019/10/14/introducing-the-new-input-system/) for handling player input. It abstracts from specific hardware making it easy to define behavior for any mouse, keyboard, or gamepad regardless of hardware differences. 
 
-The new Unity Input System holds mappings in a dedicated "Input Action" asset found in the "Assets/Actions" folder in either C# or Unity file form. You can double click the Unity file where you can use the GUI to define "Actions" then map forms of input to them. 
+The new Unity Input System holds mappings in a dedicated **Input Action** asset found in the *Assets/Actions* folder in either C# or Unity file form. You can double click the Unity file where you can use the GUI to define **Actions** then map forms of input to them. 
 
-In my scene I have a "PlayerInput" (Singleton) game object with a "Player Input" component where this Input Action asset is assigned and configured to "Invoke Unity Events". This project has keyboard/gamepad actions defined for:
+In my scene I have a **PlayerInput** (Singleton) game object with a *Player Input* component where this Input Action asset is assigned and configured to *"Invoke Unity Events"*. This project has keyboard/gamepad actions defined for:
 
 1. Move (Up, Down, Left Right)
 2. Select 
@@ -30,11 +30,11 @@ In my scene I have a "PlayerInput" (Singleton) game object with a "Player Input"
 
 And mouse actions defined for point and click. 
 
-Then I have a "PlayerInputHandler" (Singleton) game object that listens to the player input events and passes them along to the "Scene Controller" to situationally do what is needed with the input. A "Scene Controller" is a pattern I use to respond to the input differently in each Unity scene. 
+Then I have a **PlayerInputHandler** (Singleton) game object that listens to the player input events and passes them along to the **"Scene Controller"** to situationally do what is needed with the input. A "Scene Controller" is a pattern I use to respond to the input differently in each Unity scene. 
 
 ### Remapping Controls
 
-I have a script called "ControlsBindingText.cs" that is placed on text game objects in the controls view. Each object corresponds to a different input mapping (select, up, etc.). When one of these mappings is "selected" the "ControlsBindingText.cs" "StartRebinding()" function is called. 
+I have a script called **ControlsBindingText.cs** that is placed on text game objects in the controls view. Each object corresponds to a different input mapping (select, up, etc.). When one of these mappings is "selected" the ControlsBindingText.cs - *StartRebinding()* function is called. 
 
 ```
     public void StartRebinding()
@@ -62,13 +62,13 @@ I have a script called "ControlsBindingText.cs" that is placed on text game obje
     }
 ```
 
-The most confusing part of this script are the "bindingId"s and "bindingIndex"s. Essentially for the new Unity Input System every binding for an "Action" has a unique ID associated with it. I entered these ID's from the UI into the public string field in their corresponding "ControlsBindingText.cs" objects so they remapped the correct Action binding in the Unity Input Action asset. The only way I can get all the bindings on an Action is as an Array so I also track which "Index" in that Actions "Bindings" array each of those Id's matches. 
+The most confusing part of this script are the *bindingId*'s and *bindingIndex*'s. Essentially for the new Unity Input System every binding for an "Action" has a unique ID associated with it. I entered these ID's from the UI into the public string field in their corresponding *ControlsBindingText.cs* objects so they remapped the correct Action binding in the Unity Input Action asset. The only way I can get all the bindings on an Action is as an Array so I also track which "Index" in that Actions "Bindings" array each of those Id's matches. 
 
 Hopefully the script makes more sense than that paragraph.
 
 ### Saving the Controls
 
-The "PlayerSettings.cs" (Singleton) script has a public reference to the "PlayerInput" asset that holds the new Unity Input System config. 
+The **PlayerSettings.cs** (Singleton) script has a public reference to the **PlayerInput** asset that holds the new Unity Input System config. 
 
 It leverages the PlayerInput asset to save bindings as Json in string form.
 
@@ -84,7 +84,7 @@ It then can also override the current PlayerInput asset with a saved config.
 
 # Player Settings
 
-The "PlayerSettings.cs" (Singleton) script is pretty self explanatory. It utilizeds Unity `PlayerPrefs` to Save/Load player settings. And contains a bunch of helper methods to retrieve/set those saved settings.
+The **PlayerSettings.cs** (Singleton) script is pretty self explanatory. It utilizeds Unity `PlayerPrefs` to Save/Load player settings. And contains a bunch of helper methods to retrieve/set those saved settings.
 
 ### Settings managed
 1. Music Volume
@@ -94,7 +94,7 @@ The "PlayerSettings.cs" (Singleton) script is pretty self explanatory. It utiliz
 
 # Audio 
 
-The Audio system is also pretty self explanatory. The "AudioManager" game object (Singleton) contains 9 "Audio Source" components. The first Audio Source is dedicated to music. And the subsequent 8 are for sound effects. The "AudioManager.cs" script on the "AudioManager" game object is accessed from anywhere to play clips, and it cycles through the array of Audio Sources configuring and playing them. It sets their volume based on Player Settings. It also contains some cached sounds used often.  
+The Audio system is also pretty self explanatory. The **AudioManager** game object (Singleton) contains 9 *Audio Source* components. The first Audio Source is dedicated to music. And the subsequent 8 are for sound effects. The **AudioManager.cs** script on the *AudioManager* game object is accessed from anywhere to play clips, and it cycles through the array of Audio Sources configuring and playing them. It sets their volume based on Player Settings. It also contains some cached sounds used often.  
 
 # Localization
 
@@ -109,9 +109,9 @@ There are a lot of routes to get dynamic localization for you Unity project. Thi
 2. Spanish (obtained through google translate)
 3. Simplified Chinese (obtained through google translate)
 
-To use the method in this tool you export your localization spreadsheet as a "*.csv*" file and save in the "Resources" folder. The "CSVLoader.cs" script takes in the spreadsheet and saves all the text in a dictionary with a key for each language. 
+To use the method in this tool you export your localization spreadsheet as a *.csv* file and save in the **Resources/** folder. The **CSVLoader.cs** script takes in the spreadsheet and saves all the text in a dictionary with a key for each language. 
 
-The "LocalizationManager" gameobject / script then grabs each key on the CSVLoader and saves the contents in a language specific dictionary.
+The **LocalizationManager** gameobject / script then grabs each key on the CSVLoader and saves the contents in a language specific dictionary.
 
 ```
     localizedEN = csvLoader.GetDictionaryValues("en");
@@ -146,13 +146,13 @@ public static string GetLocalizedValue(string key)
     }
 ```
 
-Every text object in the project has a "LocalizedText" script assigned that calls the "LocalizationManager" to get it's text localized to the current selected language. 
+Every text object in the project has a **LocalizedText.cs** script assigned that calls the **LocalizationManager** to get it's text localized to the current selected language. 
 
 ### Handling different language characters
 
 When I first implemented this localization system all of the chinese characters for Simplified Chinese language chosen were displayed as squares. This was because the font asset each TextMeshPro game object was using did not support chinese characters. 
 
-I decided to import the Google created "Noto Sans" font via .otf files downloaded from Google Fonts. The "Noto" series of fonts is an initiative by google to create a font family that supports almost all known languages. Find all the Noto fonts in the "Assets/Fonts" folder. I then created TextMeshPro font assets from each of these fonts. Designated the "BASE-Noto Sans-Regular SDF" TextMeshPro font asset as the font asset for every text object. Then edited the "BASE-Noto Sans-Regular SDF" asset to designate it's "Fallback Font Assets" to include all the other Noto family font assets (japanese, korean, etc.) so that if it ever didn't have the language character supported it would search its fallbacks. 
+I decided to import the Google created "Noto Sans" font via *.otf* files downloaded from Google Fonts. The "Noto" series of fonts is an initiative by google to create a font family that supports almost all known languages. Find all the Noto fonts in the **Assets/Fonts** folder. I then created TextMeshPro font assets from each of these fonts. Designated the **BASE-Noto Sans-Regular SDF** TextMeshPro font asset as the font asset for every text object. Then edited the **BASE-Noto Sans-Regular SDF** asset to designate it's *Fallback Font Assets* to include all the other Noto family font assets (japanese, korean, etc.) so that if it ever didn't have the language character supported it would search its fallbacks. 
 
 # In Conclusion
 
