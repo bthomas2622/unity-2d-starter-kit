@@ -1,13 +1,13 @@
 # Unity 2020 2D Starter Kit
 
-This "Unity 2020 2D Starter Kit" project is designed to help people hit the ground running on a 2D game. It contains a simple main menu with the following features: 
+This "Unity 2020 2D Starter Kit" project is designed to help Unity developers / jammers hit the ground running on a 2D game. It contains a simple main menu with the following features: 
 
 1. **New Unity Input System** configured for mouse + keyboard + gamepad input and remappable controls
 2. **Player Settings** capable of saving preferences for fullscreen/windowed, music volume, effects volume, keyboard mappings, gamepad mappings, and language.
 3. **Audio Manager** for playing music and sounds   
 4. **Localization Manager** for seemless switching between languages
 
-*Disclaimer*: Even though I did my best to provide context about the contents of the starter kit in this README, this is not a step-by-step tutorial. It is a downloadable Unity Project that can be explored to learn/leverage the fundamentals contained. 
+I did my best to provide context about the contents of the starter kit in this README. But this is not a step-by-step tutorial, it is a downloadable Unity Project that can be explored to learn/leverage the tools contained. 
 
 Feel free to reach out with questions I am [@freebrunch](https://twitter.com/freebrunch) on Twitter.
 
