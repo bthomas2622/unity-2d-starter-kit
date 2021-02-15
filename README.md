@@ -5,7 +5,7 @@ This "Unity 2020 2D Starter Kit" project is designed to help Unity developers / 
 1. **New Unity Input System** configured for mouse + keyboard + gamepad input and remappable controls
 2. **Player Settings** capable of saving preferences for fullscreen/windowed, music volume, effects volume, keyboard mappings, gamepad mappings, and language.
 3. **Audio Manager** for playing music and sounds   
-4. **Localization Manager** for seemless switching between languages
+4. **Localization Manager** for seamless switching between languages
 
 I did my best to provide context about the contents of the starter kit in this README. But this is not a step-by-step tutorial, it is a downloadable Unity Project that can be explored to learn/leverage the tools contained. 
 
@@ -119,7 +119,7 @@ This is just one simplistic way to handle mouse/touch input that would only work
 
 # Player Settings
 
-The **PlayerSettings.cs** (Singleton) script is pretty self explanatory. It utilizeds Unity `PlayerPrefs` to Save/Load player settings. And contains a bunch of helper methods to retrieve/set those saved settings.
+The **PlayerSettings.cs** (Singleton) script is pretty self explanatory. It utilizes Unity `PlayerPrefs` to Save/Load player settings. And contains a bunch of helper methods to retrieve/set those saved settings.
 
 ### Settings managed
 1. Music Volume
@@ -137,7 +137,7 @@ The Audio system is also pretty self explanatory. The **AudioManager** game obje
 1. [Game Dev Guide - Youtube tutorial for script that imports localization csv](https://youtu.be/c-dzg4M20wY)
 2. [Zolran - Creating TextMeshPro font asset with fallback fonts for different language characters](https://youtu.be/pLW2B98W5AU)
 
-There are a lot of routes to get dynamic localization for you Unity project. This is a very simple one. This solution takes in a localization spreadsheet. Each column in the spreadsheet corresponds to a different language. And each row is a translation of some text, identifiable by a key in the first column. Make sure that each cell of translation is bookended by quotation marks.
+There are a lot of routes to get dynamic localization for your Unity project. This is a very simple one. This solution takes in a localization spreadsheet. Each column in the spreadsheet corresponds to a different language. And each row is a translation of some text, identifiable by a key in the first column. Make sure that each cell of translation is bookended by quotation marks.
 
 ### Languages used in this starter kit project
 1. English
