@@ -83,7 +83,39 @@ It then can also override the current PlayerInput asset with a saved config.
 
 ### Mouse Input Handling
 
-To be written...
+My **InputAction** map of player inputs has simple "point" and "click" actions that pass `InputAction.CallbackContext`'s to my `PlayerInputHandler`. 
+
+My `PlayerInputHandler` converts the context location to the in game coordinates. 
+
+`pointerLocation = cachedMainCamera.ScreenToWorldPoint(inputValue);`
+
+And then my **SceneController** determines what to do if that portion of the screen has been "hovered over" or "clicked". 
+
+`currentSceneController.Point(cachedPointerLocation);`
+
+```
+public void Point(Vector2 pointerLocation)
+    {
+        Vector2Int pointAnalysis = Util.ReturnPositionFromMouse(pointerLocation, menuLayer, sceneClickables);
+```
+
+You will see in my SceneController - "MainMenuController" I do "analysis" on the mouse input to determine if any gameObject matches mouse input. For every scene I have every selectable located on a x,y grid with different layers for menus. 
+
+Here are some example defined clickables/hoverables on my MainMenu.
+
+```
+    // xbounds (left to right), ybounds (bottom to top), layer, row, col
+    // layer 1
+    private List<float> playButton = new List<float>() { -4f, 4f, -1.5f, 1.5f, 1f, 1f, 1f };
+    private List<float> settingsButton = new List<float>() { -4f, 4f, -5.5f, -2.5f, 1f, 2f, 1f};
+    // layer 2
+    private List<float> musicVolume = new List<float>() { 4.6f, 14.6f, 4.65f, 6.65f, 2f, 1f, 1f };
+    private List<float> musicVolumeIncrease = new List<float>() { 14.61f, 16.6f, 4.65f, 6.65f, 2f, 1f, 2f };
+```
+
+So I do an analysis on the click location where I take the current menu layer and click location and see if it matches any of my predefined scene clickables. If it matches I can take appropriate action on click or hover. 
+
+This is just one simplistic way to handle mouse/touch input that would only work if you have static/unmoving clickables in your scene. But hopefully it can inspire you for creating a system for managing your own mouse input that is adaptable to your design needs.
 
 # Player Settings
 
