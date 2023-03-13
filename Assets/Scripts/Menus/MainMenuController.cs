@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class MainMenuController : MonoBehaviour, SceneController
 {
@@ -13,8 +14,10 @@ public class MainMenuController : MonoBehaviour, SceneController
 
     // xbounds (left to right), ybounds (bottom to top), layer, row, col
     // layer 1
-    private List<float> playButton = new List<float>() { -4f, 4f, -1.5f, 1.5f, 1f, 1f, 1f };
-    private List<float> settingsButton = new List<float>() { -4f, 4f, -5.5f, -2.5f, 1f, 2f, 1f};
+    private List<float> playButton = new List<float>() { -4f, 4f, 0f, 3f, 1f, 1f, 1f };
+    private List<float> settingsButton = new List<float>() { -4f, 4f, -3f, -0.01f, 1f, 2f, 1f};
+    private List<float> creditsButton = new List<float>() { -4f, 4f, -6f, -3.01f, 1f, 3f, 1f };
+    private List<float> quitButton = new List<float>() { -4f, 4f, -9f, -6.01f, 1f, 4f, 1f };
     // layer 2
     private List<float> fullscreen = new List<float>() { 4.6f, 14.6f, 4.65f, 6.65f, 2f, 1f, 1f };
     private List<float> fullscreenRight = new List<float>() { 14.61f, 16.6f, 4.65f, 6.65f, 2f, 1f, 2f };
@@ -51,7 +54,6 @@ public class MainMenuController : MonoBehaviour, SceneController
     private List<List<float>> sceneClickables = new List<List<float>>();
     private ControlsController controlsController;
     private SettingsController settingsController;
-    private SpriteRenderer settingsBackdrop;
 
     private int menuLayerMax = 2;
     private int settingsPosXMax = 7;
@@ -60,11 +62,17 @@ public class MainMenuController : MonoBehaviour, SceneController
     private SelectedIcon selectedIconLeft;
     private SelectedIcon selectedIconRight;
 
+    private List<TextMeshPro> mainMenuOptions = new List<TextMeshPro>();
+    private List<TextMeshPro> creditsOptions = new List<TextMeshPro>();
+
+
     void Awake()
     {
         menuLayer = 1;
         sceneClickables.Add(playButton);
         sceneClickables.Add(settingsButton);
+        sceneClickables.Add(creditsButton);
+        sceneClickables.Add(quitButton);
         sceneClickables.Add(fullscreen);
         sceneClickables.Add(music);
         sceneClickables.Add(effects);
@@ -97,10 +105,23 @@ public class MainMenuController : MonoBehaviour, SceneController
 
         controlsController = GameObject.Find("ControlsController").GetComponent<ControlsController>();
         settingsController = GameObject.Find("SettingsController").GetComponent<SettingsController>();
-        settingsBackdrop = GameObject.Find("MenuLayer2Backdrop").GetComponent<SpriteRenderer>();
-        settingsBackdrop.enabled = false;
         selectedIconLeft = GameObject.Find("SelectedIconLeft").GetComponent<SelectedIcon>();
         selectedIconRight = GameObject.Find("SelectedIconRight").GetComponent<SelectedIcon>();
+
+    }
+
+    void Start()
+    {
+        foreach (GameObject mainText in GameObject.FindGameObjectsWithTag("mainOptions"))
+        {
+            mainMenuOptions.Add(mainText.GetComponent<TextMeshPro>());
+        }
+
+        foreach (GameObject creditsText in GameObject.FindGameObjectsWithTag("creditsText"))
+        {
+            creditsOptions.Add(creditsText.GetComponent<TextMeshPro>());
+        }
+        HideCredits();
     }
 
     public void Move(Util.Direction direction)
@@ -117,10 +138,13 @@ public class MainMenuController : MonoBehaviour, SceneController
             }
             else if (menuLayer == 2)
             {
-                if (settingsPosition.x > 1)
+                if (mainMenuPosition.x == 2)
                 {
-                    settingsPosition.x -= 1;
-                    AudioManager.Instance.PlayMenuMove();
+                    if (settingsPosition.x > 1)
+                    {
+                        settingsPosition.x -= 1;
+                        AudioManager.Instance.PlayMenuMove();
+                    }
                 }
             }
             else if (menuLayer == 3)
@@ -144,10 +168,13 @@ public class MainMenuController : MonoBehaviour, SceneController
             }
             else if (menuLayer == 2)
             {
-                if (settingsPosition.x < settingsPosXMax)
+                if (mainMenuPosition.x == 2)
                 {
-                    settingsPosition.x += 1;
-                    AudioManager.Instance.PlayMenuMove();
+                    if (settingsPosition.x < settingsPosXMax)
+                    {
+                        settingsPosition.x += 1;
+                        AudioManager.Instance.PlayMenuMove();
+                    }
                 }
             }
             else if (menuLayer == 3)
@@ -163,7 +190,10 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 2)
             {
-                settingsController.Left(GetSettingOptionFromXPos());
+                if (mainMenuPosition.x == 2)
+                {
+                    settingsController.Left(GetSettingOptionFromXPos());
+                }
             }
             else if (menuLayer == 3)
             {
@@ -178,7 +208,10 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 2)
             {
-                settingsController.Right(GetSettingOptionFromXPos());
+                if (mainMenuPosition.x == 2)
+                {
+                    settingsController.Right(GetSettingOptionFromXPos());
+                }
             }
             else if (menuLayer == 3)
             {
@@ -200,35 +233,48 @@ public class MainMenuController : MonoBehaviour, SceneController
             {
                 menuLayer += 1;
                 ResetLayerDefaultPositions(true, true);
-                settingsBackdrop.enabled = true;
+                HideMain();
                 settingsController.ShowSettings();
                 AudioManager.Instance.PlayMenuSelect();
+            }
+            else if (mainMenuPosition.x == 3)
+            {
+                menuLayer += 1;
+                AudioManager.Instance.PlayMenuSelect();
+                HideMain();
+                ShowCredits();
+            }
+            else if (mainMenuPosition.x == 4)
+            {
+                Application.Quit();
             }
         }
         else if (menuLayer == 2)
         {
-            if (settingsPosition.x == 4)
+            if (mainMenuPosition.x == 2)
             {
-                menuLayer += 1;
-                settingsController.HideSettings();
-                ResetLayerDefaultPositions(false, true);
-                controlsController.ShowControls(true);
-                AudioManager.Instance.PlayMenuSelect();
-            }
-            else if (settingsPosition.x == 5)
-            {
-                menuLayer += 1;
-                settingsController.HideSettings();
-                ResetLayerDefaultPositions(false, true);
-                controlsController.ShowControls(false);
-                AudioManager.Instance.PlayMenuSelect();
-            }
-            else if (settingsPosition.x == 7)
-            {
-                menuLayer = 1;
-                settingsBackdrop.enabled = false;
-                settingsController.HideSettings();
-                AudioManager.Instance.PlayMenuSelect();
+                if (settingsPosition.x == 4)
+                {
+                    menuLayer += 1;
+                    settingsController.HideSettings();
+                    ResetLayerDefaultPositions(false, true);
+                    controlsController.ShowControls(true);
+                    AudioManager.Instance.PlayMenuSelect();
+                }
+                else if (settingsPosition.x == 5)
+                {
+                    menuLayer += 1;
+                    settingsController.HideSettings();
+                    ResetLayerDefaultPositions(false, true);
+                    controlsController.ShowControls(false);
+                    AudioManager.Instance.PlayMenuSelect();
+                }
+                else if (settingsPosition.x == 7)
+                {
+                    AudioManager.Instance.PlayMenuSelect();
+                    ExitSettings();
+                    ShowMain();
+                }
             }
         }
         else if (menuLayer == 3)
@@ -261,9 +307,9 @@ public class MainMenuController : MonoBehaviour, SceneController
     {
         int xPositionUpdate = menuLayer == 1 ? mainMenuPosition.x : menuLayer == 2 ? settingsPosition.x : controlsPosition.x;
         int yPositionUpdate = menuLayer == 1 ? mainMenuPosition.y : menuLayer == 2 ? settingsPosition.y : controlsPosition.y;
-        selectedIconLeft.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate);
-        selectedIconRight.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate);
-        if (menuLayer == 2)
+        selectedIconLeft.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate, mainMenuPosition.x);
+        selectedIconRight.UpdateSelectedIconPosition(menuLayer, xPositionUpdate, yPositionUpdate, mainMenuPosition.x);
+        if (menuLayer == 2 && mainMenuPosition.x == 2)
         {
             settingsController.ChangeSettingSelected(GetSettingOptionFromXPos());
         }
@@ -287,10 +333,18 @@ public class MainMenuController : MonoBehaviour, SceneController
     {
         if (menuLayer == 2)
         {
-            menuLayer = 1;
-            settingsBackdrop.enabled = false;
-            settingsController.HideSettings();
-            AudioManager.Instance.PlayMenuBack();
+            if (mainMenuPosition.x == 2)
+            {
+                ExitSettings();
+                AudioManager.Instance.PlayMenuBack();
+            }
+            else if (mainMenuPosition.x == 3)
+            {
+                menuLayer = 1;
+                HideCredits();
+                ShowMain();
+                AudioManager.Instance.PlayMenuBack();
+            }
         }
         else if (menuLayer == 3)
         {
@@ -317,21 +371,24 @@ public class MainMenuController : MonoBehaviour, SceneController
             }
             else if (menuLayer == 2)
             {
-                if (clickAnalysis.y == -1)
+                if (mainMenuPosition.x == 2)
                 {
-                    Move(Util.Direction.left);
-                }
-                else if (clickAnalysis.y == 2)
-                {
-                    Move(Util.Direction.right);
-                }
-                else
-                {
-                    if (settingsPosition.x != clickAnalysis.x)
+                    if (clickAnalysis.y == -1)
                     {
-                        AudioManager.Instance.PlayMenuMove();
+                        Move(Util.Direction.left);
                     }
-                    settingsPosition = clickAnalysis;
+                    else if (clickAnalysis.y == 2)
+                    {
+                        Move(Util.Direction.right);
+                    }
+                    else
+                    {
+                        if (settingsPosition.x != clickAnalysis.x)
+                        {
+                            AudioManager.Instance.PlayMenuMove();
+                        }
+                        settingsPosition = clickAnalysis;
+                    }
                 }
             }
             else if (menuLayer == 3)
@@ -361,11 +418,14 @@ public class MainMenuController : MonoBehaviour, SceneController
             }
             else if (menuLayer == 2)
             {
-                if (settingsPosition.x != pointAnalysis.x)
+                if (mainMenuPosition.x == 2)
                 {
-                    AudioManager.Instance.PlayMenuMove();
+                    if (settingsPosition.x != pointAnalysis.x)
+                    {
+                        AudioManager.Instance.PlayMenuMove();
+                    }
+                    settingsPosition = pointAnalysis;
                 }
-                settingsPosition = pointAnalysis;
             }
             else if (menuLayer == 3)
             {
@@ -490,5 +550,44 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             return SettingsController.SettingOptions.na;
         }
+    }
+
+    private void HideMain()
+    {
+        foreach (TextMeshPro mainMenuOption in mainMenuOptions)
+        {
+            mainMenuOption.enabled = false;
+        }
+    }
+
+    private void ShowMain()
+    {
+        foreach (TextMeshPro mainMenuOption in mainMenuOptions)
+        {
+            mainMenuOption.enabled = true;
+        }
+    }
+
+    private void ShowCredits()
+    {
+        foreach (TextMeshPro creditsOption in creditsOptions)
+        {
+            creditsOption.enabled = true;
+        }
+    }
+
+    private void HideCredits()
+    {
+        foreach (TextMeshPro creditsOption in creditsOptions)
+        {
+            creditsOption.enabled = false;
+        }
+    }
+
+    private void ExitSettings()
+    {
+        menuLayer = 1;
+        settingsController.HideSettings();
+        ShowMain();
     }
 }

@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip MenuMove;
     public AudioClip MenuSelect;
     public AudioClip MenuBack;
+    public AudioClip MenuMusic;
 
     public void Awake()
     {
@@ -46,6 +47,11 @@ public class AudioManager : MonoBehaviour
                 effectsPlayers.Add(audioSources[i]);
             }
         }
+        UpdateEffectsVolume();
+        UpdateMusicVolume();
+        musicPlayer.clip = MenuMusic;
+        musicPlayer.loop = true;
+        musicPlayer.Play();
     }
 
     public void PlayMenuMove()

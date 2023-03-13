@@ -1,6 +1,8 @@
-# Unity 2020 2D Starter Kit
+# Unity 2D Starter Kit
 
-This "Unity 2020 2D Starter Kit" project is designed to help Unity developers / jammers hit the ground running on a 2D game. It contains a simple main menu with the following features: 
+**Current Targeted Unity Version**: 2021.3.20f1 (LTS)
+
+This "Unity 2D Starter Kit" project is designed to help Unity developers / jammers hit the ground running on a 2D game. It contains a simple main menu with the following features: 
 
 1. **New Unity Input System** configured for mouse + keyboard + gamepad input and remappable controls
 2. **Player Settings** capable of saving preferences for fullscreen/windowed, music volume, effects volume, keyboard mappings, gamepad mappings, and language.

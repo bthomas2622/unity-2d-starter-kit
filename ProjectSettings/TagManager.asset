@@ -8,6 +8,8 @@ TagManager:
   - sceneController
   - settings
   - multiArrows
+  - mainOptions
+  - creditsText
   layers:
   - Default
   - TransparentFX

@@ -12,9 +12,9 @@ public class PlayerSettings : MonoBehaviour
     private static string fullScreenMode = "fullscreenMode";
     private static int fullScreenModeDefault = 1;
     private static string musicVolume = "musicVolume";
-    private static int musicVolumeDefault = 4;
+    private static int musicVolumeDefault = 2;
     private static string effectsVolume = "effectsVolume";
-    private static int effectsVolumeDefault = 5;
+    private static int effectsVolumeDefault = 8;
     private static string language = "language";
     private static int languageDefault = 1; // 1 - English, 2 - Spanish, 3 - Simplified Chinese
 

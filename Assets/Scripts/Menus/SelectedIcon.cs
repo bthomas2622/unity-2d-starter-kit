@@ -16,9 +16,9 @@ public class SelectedIcon : MonoBehaviour
         selectedSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    public void UpdateSelectedIconPosition(int layer, int x, int y)
+    public void UpdateSelectedIconPosition(int layer, int x, int y, int mainMenuPositionX)
     {
-        selectedSpriteRenderer.enabled = true;
+        selectedSpriteRenderer.enabled = (layer == 2 && mainMenuPositionX == 3) ? false : true;
         if (iconDirection == SelectedDirection.left)
         {
             if (layer == 1)
@@ -26,11 +26,19 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.sprite = selectedIcon;
                 if (x == 1)
                 {
-                    gameObject.transform.position = new Vector3(-8f, 0f, 0f);
+                    gameObject.transform.position = new Vector3(-8f, 1.5f, 0f);
                 }
                 else if (x == 2)
                 {
-                    gameObject.transform.position = new Vector3(-8f, -4f, 0f);
+                    gameObject.transform.position = new Vector3(-8f, -1.5f, 0f);
+                }
+                else if (x == 3)
+                {
+                    gameObject.transform.position = new Vector3(-8f, -4.5f, 0f);
+                }
+                else if (x == 4)
+                {
+                    gameObject.transform.position = new Vector3(-8f, -7.5f, 0f);
                 }
             }
             else if (layer == 2)
@@ -104,11 +112,19 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.sprite = selectedIcon;
                 if (x == 1)
                 {
-                    gameObject.transform.position = new Vector3(8f, 0f, 0f);
+                    gameObject.transform.position = new Vector3(8f, 1.5f, 0f);
                 }
                 else if (x == 2)
                 {
-                    gameObject.transform.position = new Vector3(8f, -4f, 0f);
+                    gameObject.transform.position = new Vector3(8f, -1.5f, 0f);
+                }
+                else if (x == 3)
+                {
+                    gameObject.transform.position = new Vector3(8f, -4.5f, 0f);
+                }
+                else if (x == 4)
+                {
+                    gameObject.transform.position = new Vector3(8f, -7.5f, 0f);
                 }
             }
             else if (layer == 2)
@@ -120,5 +136,15 @@ public class SelectedIcon : MonoBehaviour
                 selectedSpriteRenderer.enabled = false;
             }
         }
+    }
+
+    public void HideSelectedIcon()
+    {
+        selectedSpriteRenderer.enabled = false;
+    }
+
+    public void ShowSelectedIcon()
+    {
+        selectedSpriteRenderer.enabled = true;
     }
 }
