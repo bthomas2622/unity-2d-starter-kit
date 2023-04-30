@@ -55,7 +55,7 @@ public class MainMenuController : MonoBehaviour, SceneController
     private ControlsController controlsController;
     private SettingsController settingsController;
 
-    private int menuLayerMax = 2;
+    private int mainMenuLayerMax = 4;
     private int settingsPosXMax = 7;
     private int controlsPosXMax = 7;
 
@@ -160,7 +160,7 @@ public class MainMenuController : MonoBehaviour, SceneController
         {
             if (menuLayer == 1)
             {
-                if (mainMenuPosition.x < menuLayerMax)
+                if (mainMenuPosition.x < mainMenuLayerMax)
                 {
                     mainMenuPosition.x += 1;
                     AudioManager.Instance.PlayMenuMove();
